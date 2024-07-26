@@ -13,8 +13,7 @@ pub struct RawMem {}
 
 impl RawMem {
     pub fn mem(&self) -> Mem {
-        let s = unsafe { std::slice::from_raw_parts(0 as *const u8, 1 << 30) };
-        Mem::from_slice(s)
+        Mem::new(std::ptr::null_mut(), (1 << 30) as *mut u8)
     }
     pub fn len(&self) -> u32 {
         0xFFFF_FFFF
@@ -91,11 +90,11 @@ impl MachineX<Emulator> {
         // that calls from/to it can be managed with 32-bit pointers.
         // (This arrangement is set up by the linker flags.)
         let mem_3gb_range = 0xc000_0000u64..0x1_0000_0000u64;
-        let fn_addr = &Self::jump_to_entry_point as *const _ as u64;
-        assert!(mem_3gb_range.contains(&fn_addr));
+        let fn_addr = Self::jump_to_entry_point as *const fn() as u64;
+        assert!(mem_3gb_range.contains(&fn_addr), "fn_addr ({fn_addr:x}) not in 3-4gb range");
 
-        println!("entry point at {:x}, about to jump", entry_point);
-        std::io::stdin().read_line(&mut String::new()).unwrap();
+        log::info!("entry point at {entry_point:x}, about to jump (startup: {elapsed:?})");
+        // std::io::stdin().read_line(&mut String::new()).unwrap();
 
         let pin = std::pin::pin!(self.call_x86(entry_point, vec![]));
         crate::shims::call_sync(pin);

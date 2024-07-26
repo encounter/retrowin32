@@ -86,6 +86,14 @@ pub struct Mem<'m> {
 }
 
 impl<'m> Mem<'m> {
+    pub fn new(ptr: *mut u8, end: *mut u8) -> Mem<'m> {
+        Mem {
+            ptr,
+            end,
+            _marker: std::marker::PhantomData,
+        }
+    }
+
     pub fn from_slice(s: &'m [u8]) -> Mem<'m> {
         let range = s.as_ptr_range();
         Mem {
@@ -235,8 +243,7 @@ impl<'m> Extensions<'m> for Mem<'m> {
     }
 
     fn slicez(self, ofs: u32) -> &'m [u8] {
-        let ofs = ofs as usize;
-        let slice = &self.as_slice_todo()[ofs..];
+        let slice = self.slice(ofs..).as_slice_todo();
         let nul = slice.iter().position(|&c| c == 0).unwrap();
         &slice[..nul]
     }

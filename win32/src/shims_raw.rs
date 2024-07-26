@@ -214,7 +214,7 @@ pub fn call_x86(machine: &mut Machine, func: u32, args: Vec<u32>) -> UnimplFutur
         STACK32 = esp;
 
         #[allow(unused_mut)]
-        let mut ret = 0;
+        let mut ret;
         std::arch::asm!(
             // We need to back up all non-scratch registers (rbx/rbp),
             // because even callee-saved registers will only be saved as 32-bit,
