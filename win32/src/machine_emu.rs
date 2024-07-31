@@ -89,9 +89,10 @@ impl MachineX<Emulator> {
     pub fn load_exe(
         &mut self,
         buf: &[u8],
-        path: &Path,
+        path: impl AsRef<Path>,
         relocate: Option<Option<u32>>,
     ) -> anyhow::Result<LoadedAddrs> {
+        let path = path.as_ref();
         let exe = pe::load_exe(self, buf, path, relocate)?;
 
         let stack_pointer = self.create_stack("stack".into(), exe.stack_size);
@@ -151,7 +152,7 @@ impl MachineX<Emulator> {
                 if self.host.block(wait) {
                     self.unblock();
                 }
-                StopReason::None
+                StopReason::Blocked
             }
             x86::CPUState::DebugBreak => {
                 // resume execution after breakpoint
@@ -189,12 +190,20 @@ impl MachineX<Emulator> {
                 },
             };
         }
-        self.emu
+        let ran = self
+            .emu
             .x86
             .execute_block(self.emu.memory.mem(), instruction_count);
         let eip = self.emu.x86.cpu().regs.eip;
         match &self.emu.x86.cpu().state {
-            x86::CPUState::Running | x86::CPUState::Blocked(_) => StopReason::None,
+            x86::CPUState::Running | x86::CPUState::Blocked(_) => {
+                if ran == 0 {
+                    // Inform the event loop that we're polling a future.
+                    StopReason::Blocked
+                } else {
+                    StopReason::None
+                }
+            }
             x86::CPUState::DebugBreak => StopReason::Breakpoint { eip },
             x86::CPUState::Error(message) => StopReason::Error {
                 message: message.clone(),
@@ -218,6 +227,14 @@ impl MachineX<Emulator> {
         if let Some(future) = handle_shim_call(self, shim) {
             self.emu.x86.cpu_mut().call_async(future);
         }
+    }
+
+    pub fn snapshot(&self) -> Box<[u8]> {
+        todo!("snapshot")
+    }
+
+    pub fn load_snapshot(&mut self, _bytes: &[u8]) {
+        todo!("load_snapshot")
     }
 
     /// Patch in an int3 over the instruction at that addr, backing up the current one.

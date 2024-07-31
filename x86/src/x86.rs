@@ -10,7 +10,7 @@ use crate::{
 use memory::Mem;
 use std::future::Future;
 use std::pin::Pin;
-use std::task::Context;
+use std::task::{Context, Poll};
 
 #[derive(Debug, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub enum CPUState {
@@ -31,6 +31,9 @@ impl CPUState {
 /// When eip==MAGIC_ADDR, the CPU executes futures (async tasks) rather than x86 code.
 const MAGIC_ADDR: u32 = 0xFFFF_FFF0;
 
+// Similar to futures::future::BoxFuture, but 'static + !Send.
+pub type BoxFuture<T> = Pin<Box<dyn Future<Output = T>>>;
+
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct CPU {
     pub regs: Registers,
@@ -45,7 +48,7 @@ pub struct CPU {
     /// If eip==MAGIC_ADDR, then the next step is to poll a future rather than
     /// executing a basic block.
     #[serde(skip)]
-    futures: Vec<Pin<Box<dyn Future<Output = ()>>>>,
+    futures: Vec<BoxFuture<()>>,
 }
 
 impl CPU {
@@ -103,7 +106,7 @@ impl CPU {
 
     /// Set up the CPU such that we are making an x86->async call, enqueuing a Future
     /// that is polled the next time the CPU executes.
-    pub fn call_async(&mut self, future: Pin<Box<dyn Future<Output = ()>>>) {
+    pub fn call_async(&mut self, future: BoxFuture<()>) {
         self.regs.eip = MAGIC_ADDR;
         self.futures.push(future);
     }
@@ -113,10 +116,10 @@ impl CPU {
         let mut ctx = Context::from_waker(futures::task::noop_waker_ref());
         let poll = future.as_mut().poll(&mut ctx);
         match poll {
-            std::task::Poll::Ready(()) => {
+            Poll::Ready(()) => {
                 self.futures.pop();
             }
-            std::task::Poll::Pending => {}
+            Poll::Pending => {}
         }
     }
 
@@ -135,13 +138,13 @@ pub struct X86Future {
 impl Future for X86Future {
     type Output = u32;
 
-    fn poll(self: Pin<&mut Self>, _cx: &mut Context<'_>) -> std::task::Poll<Self::Output> {
+    fn poll(self: Pin<&mut Self>, _cx: &mut Context<'_>) -> Poll<Self::Output> {
         let cpu = self.cpu;
         let cpu = unsafe { &mut *cpu };
         if cpu.regs.get32(Register::ESP) == self.esp {
-            std::task::Poll::Ready(cpu.regs.get32(Register::EAX))
+            Poll::Ready(cpu.regs.get32(Register::EAX))
         } else {
-            std::task::Poll::Pending
+            Poll::Pending
         }
     }
 }
@@ -156,13 +159,13 @@ pub struct BlockFuture {
 impl Future for BlockFuture {
     type Output = ();
 
-    fn poll(self: Pin<&mut Self>, _cx: &mut Context<'_>) -> std::task::Poll<Self::Output> {
+    fn poll(self: Pin<&mut Self>, _cx: &mut Context<'_>) -> Poll<Self::Output> {
         let cpu = self.cpu;
         let cpu = unsafe { &mut *cpu };
         if matches!(cpu.state, CPUState::Blocked(_)) {
-            std::task::Poll::Pending
+            Poll::Pending
         } else {
-            std::task::Poll::Ready(())
+            Poll::Ready(())
         }
     }
 }
