@@ -94,30 +94,26 @@ pub mod advapi32 {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const RegCloseKey: Shim = Shim {
+        use crate::shims;
+        pub const RegCloseKey: shims::Shim = shims::Shim {
             name: "RegCloseKey",
-            func: impls::RegCloseKey,
+            func: shims::Handler::Sync(impls::RegCloseKey),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const RegCreateKeyExW: Shim = Shim {
+        pub const RegCreateKeyExW: shims::Shim = shims::Shim {
             name: "RegCreateKeyExW",
-            func: impls::RegCreateKeyExW,
+            func: shims::Handler::Sync(impls::RegCreateKeyExW),
             stack_consumed: 36u32,
-            is_async: false,
         };
-        pub const RegQueryValueExW: Shim = Shim {
+        pub const RegQueryValueExW: shims::Shim = shims::Shim {
             name: "RegQueryValueExW",
-            func: impls::RegQueryValueExW,
+            func: shims::Handler::Sync(impls::RegQueryValueExW),
             stack_consumed: 24u32,
-            is_async: false,
         };
-        pub const RegSetValueExW: Shim = Shim {
+        pub const RegSetValueExW: shims::Shim = shims::Shim {
             name: "RegSetValueExW",
-            func: impls::RegSetValueExW,
+            func: shims::Handler::Sync(impls::RegSetValueExW),
             stack_consumed: 24u32,
-            is_async: false,
         };
     }
     const EXPORTS: [Symbol; 4usize] = [
@@ -193,42 +189,36 @@ pub mod bass {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const BASS_ChannelGetPosition: Shim = Shim {
+        use crate::shims;
+        pub const BASS_ChannelGetPosition: shims::Shim = shims::Shim {
             name: "BASS_ChannelGetPosition",
-            func: impls::BASS_ChannelGetPosition,
+            func: shims::Handler::Sync(impls::BASS_ChannelGetPosition),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const BASS_Init: Shim = Shim {
+        pub const BASS_Init: shims::Shim = shims::Shim {
             name: "BASS_Init",
-            func: impls::BASS_Init,
+            func: shims::Handler::Sync(impls::BASS_Init),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const BASS_MusicLoad: Shim = Shim {
+        pub const BASS_MusicLoad: shims::Shim = shims::Shim {
             name: "BASS_MusicLoad",
-            func: impls::BASS_MusicLoad,
+            func: shims::Handler::Sync(impls::BASS_MusicLoad),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const BASS_MusicPlay: Shim = Shim {
+        pub const BASS_MusicPlay: shims::Shim = shims::Shim {
             name: "BASS_MusicPlay",
-            func: impls::BASS_MusicPlay,
+            func: shims::Handler::Sync(impls::BASS_MusicPlay),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const BASS_MusicSetPositionScaler: Shim = Shim {
+        pub const BASS_MusicSetPositionScaler: shims::Shim = shims::Shim {
             name: "BASS_MusicSetPositionScaler",
-            func: impls::BASS_MusicSetPositionScaler,
+            func: shims::Handler::Sync(impls::BASS_MusicSetPositionScaler),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const BASS_Start: Shim = Shim {
+        pub const BASS_Start: shims::Shim = shims::Shim {
             name: "BASS_Start",
-            func: impls::BASS_Start,
+            func: shims::Handler::Sync(impls::BASS_Start),
             stack_consumed: 0u32,
-            is_async: false,
         };
     }
     const EXPORTS: [Symbol; 6usize] = [
@@ -298,24 +288,21 @@ pub mod ddraw {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const DirectDrawCreate: Shim = Shim {
+        use crate::shims;
+        pub const DirectDrawCreate: shims::Shim = shims::Shim {
             name: "DirectDrawCreate",
-            func: impls::DirectDrawCreate,
+            func: shims::Handler::Sync(impls::DirectDrawCreate),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const DirectDrawCreateClipper: Shim = Shim {
+        pub const DirectDrawCreateClipper: shims::Shim = shims::Shim {
             name: "DirectDrawCreateClipper",
-            func: impls::DirectDrawCreateClipper,
+            func: shims::Handler::Sync(impls::DirectDrawCreateClipper),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const DirectDrawCreateEx: Shim = Shim {
+        pub const DirectDrawCreateEx: shims::Shim = shims::Shim {
             name: "DirectDrawCreateEx",
-            func: impls::DirectDrawCreateEx,
+            func: shims::Handler::Sync(impls::DirectDrawCreateEx),
             stack_consumed: 16u32,
-            is_async: false,
         };
     }
     const EXPORTS: [Symbol; 3usize] = [
@@ -363,18 +350,16 @@ pub mod dsound {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const DirectSoundCreate: Shim = Shim {
+        use crate::shims;
+        pub const DirectSoundCreate: shims::Shim = shims::Shim {
             name: "DirectSoundCreate",
-            func: impls::DirectSoundCreate,
+            func: shims::Handler::Sync(impls::DirectSoundCreate),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const DirectSoundEnumerateA: Shim = Shim {
+        pub const DirectSoundEnumerateA: shims::Shim = shims::Shim {
             name: "DirectSoundEnumerateA",
-            func: impls::DirectSoundEnumerateA,
+            func: shims::Handler::Sync(impls::DirectSoundEnumerateA),
             stack_consumed: 8u32,
-            is_async: false,
         };
     }
     const EXPORTS: [Symbol; 2usize] = [
@@ -735,228 +720,191 @@ pub mod gdi32 {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const BitBlt: Shim = Shim {
+        use crate::shims;
+        pub const BitBlt: shims::Shim = shims::Shim {
             name: "BitBlt",
-            func: impls::BitBlt,
+            func: shims::Handler::Sync(impls::BitBlt),
             stack_consumed: 36u32,
-            is_async: false,
         };
-        pub const CreateBitmap: Shim = Shim {
+        pub const CreateBitmap: shims::Shim = shims::Shim {
             name: "CreateBitmap",
-            func: impls::CreateBitmap,
+            func: shims::Handler::Sync(impls::CreateBitmap),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const CreateCompatibleBitmap: Shim = Shim {
+        pub const CreateCompatibleBitmap: shims::Shim = shims::Shim {
             name: "CreateCompatibleBitmap",
-            func: impls::CreateCompatibleBitmap,
+            func: shims::Handler::Sync(impls::CreateCompatibleBitmap),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const CreateCompatibleDC: Shim = Shim {
+        pub const CreateCompatibleDC: shims::Shim = shims::Shim {
             name: "CreateCompatibleDC",
-            func: impls::CreateCompatibleDC,
+            func: shims::Handler::Sync(impls::CreateCompatibleDC),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const CreateDIBSection: Shim = Shim {
+        pub const CreateDIBSection: shims::Shim = shims::Shim {
             name: "CreateDIBSection",
-            func: impls::CreateDIBSection,
+            func: shims::Handler::Sync(impls::CreateDIBSection),
             stack_consumed: 24u32,
-            is_async: false,
         };
-        pub const CreateFontA: Shim = Shim {
+        pub const CreateFontA: shims::Shim = shims::Shim {
             name: "CreateFontA",
-            func: impls::CreateFontA,
+            func: shims::Handler::Sync(impls::CreateFontA),
             stack_consumed: 56u32,
-            is_async: false,
         };
-        pub const CreatePen: Shim = Shim {
+        pub const CreatePen: shims::Shim = shims::Shim {
             name: "CreatePen",
-            func: impls::CreatePen,
+            func: shims::Handler::Sync(impls::CreatePen),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const CreateSolidBrush: Shim = Shim {
+        pub const CreateSolidBrush: shims::Shim = shims::Shim {
             name: "CreateSolidBrush",
-            func: impls::CreateSolidBrush,
+            func: shims::Handler::Sync(impls::CreateSolidBrush),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const DeleteDC: Shim = Shim {
+        pub const DeleteDC: shims::Shim = shims::Shim {
             name: "DeleteDC",
-            func: impls::DeleteDC,
+            func: shims::Handler::Sync(impls::DeleteDC),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const DeleteObject: Shim = Shim {
+        pub const DeleteObject: shims::Shim = shims::Shim {
             name: "DeleteObject",
-            func: impls::DeleteObject,
+            func: shims::Handler::Sync(impls::DeleteObject),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetDCOrgEx: Shim = Shim {
+        pub const GetDCOrgEx: shims::Shim = shims::Shim {
             name: "GetDCOrgEx",
-            func: impls::GetDCOrgEx,
+            func: shims::Handler::Sync(impls::GetDCOrgEx),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetDeviceCaps: Shim = Shim {
+        pub const GetDeviceCaps: shims::Shim = shims::Shim {
             name: "GetDeviceCaps",
-            func: impls::GetDeviceCaps,
+            func: shims::Handler::Sync(impls::GetDeviceCaps),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetLayout: Shim = Shim {
+        pub const GetLayout: shims::Shim = shims::Shim {
             name: "GetLayout",
-            func: impls::GetLayout,
+            func: shims::Handler::Sync(impls::GetLayout),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetObjectA: Shim = Shim {
+        pub const GetObjectA: shims::Shim = shims::Shim {
             name: "GetObjectA",
-            func: impls::GetObjectA,
+            func: shims::Handler::Sync(impls::GetObjectA),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const GetPixel: Shim = Shim {
+        pub const GetPixel: shims::Shim = shims::Shim {
             name: "GetPixel",
-            func: impls::GetPixel,
+            func: shims::Handler::Sync(impls::GetPixel),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const GetStockObject: Shim = Shim {
+        pub const GetStockObject: shims::Shim = shims::Shim {
             name: "GetStockObject",
-            func: impls::GetStockObject,
+            func: shims::Handler::Sync(impls::GetStockObject),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetTextExtentPoint32A: Shim = Shim {
+        pub const GetTextExtentPoint32A: shims::Shim = shims::Shim {
             name: "GetTextExtentPoint32A",
-            func: impls::GetTextExtentPoint32A,
+            func: shims::Handler::Sync(impls::GetTextExtentPoint32A),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const GetTextExtentPoint32W: Shim = Shim {
+        pub const GetTextExtentPoint32W: shims::Shim = shims::Shim {
             name: "GetTextExtentPoint32W",
-            func: impls::GetTextExtentPoint32W,
+            func: shims::Handler::Sync(impls::GetTextExtentPoint32W),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const GetTextMetricsA: Shim = Shim {
+        pub const GetTextMetricsA: shims::Shim = shims::Shim {
             name: "GetTextMetricsA",
-            func: impls::GetTextMetricsA,
+            func: shims::Handler::Sync(impls::GetTextMetricsA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetTextMetricsW: Shim = Shim {
+        pub const GetTextMetricsW: shims::Shim = shims::Shim {
             name: "GetTextMetricsW",
-            func: impls::GetTextMetricsW,
+            func: shims::Handler::Sync(impls::GetTextMetricsW),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const LineDDA: Shim = Shim {
+        pub const LineDDA: shims::Shim = shims::Shim {
             name: "LineDDA",
-            func: impls::LineDDA,
+            func: shims::Handler::Sync(impls::LineDDA),
             stack_consumed: 24u32,
-            is_async: false,
         };
-        pub const LineTo: Shim = Shim {
+        pub const LineTo: shims::Shim = shims::Shim {
             name: "LineTo",
-            func: impls::LineTo,
+            func: shims::Handler::Sync(impls::LineTo),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const MoveToEx: Shim = Shim {
+        pub const MoveToEx: shims::Shim = shims::Shim {
             name: "MoveToEx",
-            func: impls::MoveToEx,
+            func: shims::Handler::Sync(impls::MoveToEx),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const PatBlt: Shim = Shim {
+        pub const PatBlt: shims::Shim = shims::Shim {
             name: "PatBlt",
-            func: impls::PatBlt,
+            func: shims::Handler::Sync(impls::PatBlt),
             stack_consumed: 24u32,
-            is_async: false,
         };
-        pub const PtVisible: Shim = Shim {
+        pub const PtVisible: shims::Shim = shims::Shim {
             name: "PtVisible",
-            func: impls::PtVisible,
+            func: shims::Handler::Sync(impls::PtVisible),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const SelectObject: Shim = Shim {
+        pub const SelectObject: shims::Shim = shims::Shim {
             name: "SelectObject",
-            func: impls::SelectObject,
+            func: shims::Handler::Sync(impls::SelectObject),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const SetBkColor: Shim = Shim {
+        pub const SetBkColor: shims::Shim = shims::Shim {
             name: "SetBkColor",
-            func: impls::SetBkColor,
+            func: shims::Handler::Sync(impls::SetBkColor),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const SetBkMode: Shim = Shim {
+        pub const SetBkMode: shims::Shim = shims::Shim {
             name: "SetBkMode",
-            func: impls::SetBkMode,
+            func: shims::Handler::Sync(impls::SetBkMode),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const SetBrushOrgEx: Shim = Shim {
+        pub const SetBrushOrgEx: shims::Shim = shims::Shim {
             name: "SetBrushOrgEx",
-            func: impls::SetBrushOrgEx,
+            func: shims::Handler::Sync(impls::SetBrushOrgEx),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const SetDIBitsToDevice: Shim = Shim {
+        pub const SetDIBitsToDevice: shims::Shim = shims::Shim {
             name: "SetDIBitsToDevice",
-            func: impls::SetDIBitsToDevice,
+            func: shims::Handler::Sync(impls::SetDIBitsToDevice),
             stack_consumed: 48u32,
-            is_async: false,
         };
-        pub const SetPixel: Shim = Shim {
+        pub const SetPixel: shims::Shim = shims::Shim {
             name: "SetPixel",
-            func: impls::SetPixel,
+            func: shims::Handler::Sync(impls::SetPixel),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const SetROP2: Shim = Shim {
+        pub const SetROP2: shims::Shim = shims::Shim {
             name: "SetROP2",
-            func: impls::SetROP2,
+            func: shims::Handler::Sync(impls::SetROP2),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const SetTextColor: Shim = Shim {
+        pub const SetTextColor: shims::Shim = shims::Shim {
             name: "SetTextColor",
-            func: impls::SetTextColor,
+            func: shims::Handler::Sync(impls::SetTextColor),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const StretchBlt: Shim = Shim {
+        pub const StretchBlt: shims::Shim = shims::Shim {
             name: "StretchBlt",
-            func: impls::StretchBlt,
+            func: shims::Handler::Sync(impls::StretchBlt),
             stack_consumed: 44u32,
-            is_async: false,
         };
-        pub const StretchDIBits: Shim = Shim {
+        pub const StretchDIBits: shims::Shim = shims::Shim {
             name: "StretchDIBits",
-            func: impls::StretchDIBits,
+            func: shims::Handler::Sync(impls::StretchDIBits),
             stack_consumed: 52u32,
-            is_async: false,
         };
-        pub const TextOutA: Shim = Shim {
+        pub const TextOutA: shims::Shim = shims::Shim {
             name: "TextOutA",
-            func: impls::TextOutA,
+            func: shims::Handler::Sync(impls::TextOutA),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const TextOutW: Shim = Shim {
+        pub const TextOutW: shims::Shim = shims::Shim {
             name: "TextOutW",
-            func: impls::TextOutW,
+            func: shims::Handler::Sync(impls::TextOutW),
             stack_consumed: 20u32,
-            is_async: false,
         };
     }
     const EXPORTS: [Symbol; 37usize] = [
@@ -1210,7 +1158,10 @@ pub mod kernel32 {
             )
             .to_raw()
         }
-        pub unsafe fn CreateThread(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn CreateThread(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let lpThreadAttributes = <u32>::from_stack(mem, esp + 4u32);
             let dwStackSize = <u32>::from_stack(mem, esp + 8u32);
@@ -1218,43 +1169,21 @@ pub mod kernel32 {
             let lpParameter = <u32>::from_stack(mem, esp + 16u32);
             let dwCreationFlags = <u32>::from_stack(mem, esp + 20u32);
             let lpThreadId = <u32>::from_stack(mem, esp + 24u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::kernel32::CreateThread(
-                        machine,
-                        lpThreadAttributes,
-                        dwStackSize,
-                        lpStartAddress,
-                        lpParameter,
-                        dwCreationFlags,
-                        lpThreadId,
-                    )
-                    .await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 24u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::kernel32::CreateThread(
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::kernel32::CreateThread(
                     machine,
                     lpThreadAttributes,
                     dwStackSize,
                     lpStartAddress,
                     lpParameter,
                     dwCreationFlags,
-                    lpThreadId
-                ));
-                crate::shims::call_sync(pin).to_raw()
-            }
+                    lpThreadId,
+                )
+                .await
+                .to_raw()
+            })
         }
         pub unsafe fn DeleteCriticalSection(machine: &mut Machine, esp: u32) -> u32 {
             let mem = machine.mem().detach();
@@ -2046,29 +1975,19 @@ pub mod kernel32 {
             winapi::kernel32::SetUnhandledExceptionFilter(machine, _lpTopLevelExceptionFilter)
                 .to_raw()
         }
-        pub unsafe fn Sleep(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn Sleep(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let dwMilliseconds = <u32>::from_stack(mem, esp + 4u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::kernel32::Sleep(machine, dwMilliseconds).await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 4u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::kernel32::Sleep(machine, dwMilliseconds));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::kernel32::Sleep(machine, dwMilliseconds)
+                    .await
+                    .to_raw()
+            })
         }
         pub unsafe fn SystemTimeToFileTime(machine: &mut Machine, esp: u32) -> u32 {
             let mem = machine.mem().detach();
@@ -2223,951 +2142,778 @@ pub mod kernel32 {
             let lpString = <Option<&Str16>>::from_stack(mem, esp + 4u32);
             winapi::kernel32::lstrlenW(machine, lpString).to_raw()
         }
-        pub unsafe fn retrowin32_main(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn retrowin32_main(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let entry_point = <u32>::from_stack(mem, esp + 4u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::kernel32::retrowin32_main(machine, entry_point).await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 4u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::kernel32::retrowin32_main(machine, entry_point));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::kernel32::retrowin32_main(machine, entry_point)
+                    .await
+                    .to_raw()
+            })
         }
-        pub unsafe fn retrowin32_thread_main(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn retrowin32_thread_main(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let entry_point = <u32>::from_stack(mem, esp + 4u32);
             let param = <u32>::from_stack(mem, esp + 8u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result =
-                        winapi::kernel32::retrowin32_thread_main(machine, entry_point, param).await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 8u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::kernel32::retrowin32_thread_main(
-                    machine,
-                    entry_point,
-                    param
-                ));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::kernel32::retrowin32_thread_main(machine, entry_point, param)
+                    .await
+                    .to_raw()
+            })
         }
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const AcquireSRWLockExclusive: Shim = Shim {
+        use crate::shims;
+        pub const AcquireSRWLockExclusive: shims::Shim = shims::Shim {
             name: "AcquireSRWLockExclusive",
-            func: impls::AcquireSRWLockExclusive,
+            func: shims::Handler::Sync(impls::AcquireSRWLockExclusive),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const AcquireSRWLockShared: Shim = Shim {
+        pub const AcquireSRWLockShared: shims::Shim = shims::Shim {
             name: "AcquireSRWLockShared",
-            func: impls::AcquireSRWLockShared,
+            func: shims::Handler::Sync(impls::AcquireSRWLockShared),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const AddVectoredExceptionHandler: Shim = Shim {
+        pub const AddVectoredExceptionHandler: shims::Shim = shims::Shim {
             name: "AddVectoredExceptionHandler",
-            func: impls::AddVectoredExceptionHandler,
+            func: shims::Handler::Sync(impls::AddVectoredExceptionHandler),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const CloseHandle: Shim = Shim {
+        pub const CloseHandle: shims::Shim = shims::Shim {
             name: "CloseHandle",
-            func: impls::CloseHandle,
+            func: shims::Handler::Sync(impls::CloseHandle),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const CreateDirectoryA: Shim = Shim {
+        pub const CreateDirectoryA: shims::Shim = shims::Shim {
             name: "CreateDirectoryA",
-            func: impls::CreateDirectoryA,
+            func: shims::Handler::Sync(impls::CreateDirectoryA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const CreateEventA: Shim = Shim {
+        pub const CreateEventA: shims::Shim = shims::Shim {
             name: "CreateEventA",
-            func: impls::CreateEventA,
+            func: shims::Handler::Sync(impls::CreateEventA),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const CreateFileA: Shim = Shim {
+        pub const CreateFileA: shims::Shim = shims::Shim {
             name: "CreateFileA",
-            func: impls::CreateFileA,
+            func: shims::Handler::Sync(impls::CreateFileA),
             stack_consumed: 28u32,
-            is_async: false,
         };
-        pub const CreateFileW: Shim = Shim {
+        pub const CreateFileW: shims::Shim = shims::Shim {
             name: "CreateFileW",
-            func: impls::CreateFileW,
+            func: shims::Handler::Sync(impls::CreateFileW),
             stack_consumed: 28u32,
-            is_async: false,
         };
-        pub const CreateThread: Shim = Shim {
+        pub const CreateThread: shims::Shim = shims::Shim {
             name: "CreateThread",
-            func: impls::CreateThread,
+            func: shims::Handler::Async(impls::CreateThread),
             stack_consumed: 24u32,
-            is_async: true,
         };
-        pub const DeleteCriticalSection: Shim = Shim {
+        pub const DeleteCriticalSection: shims::Shim = shims::Shim {
             name: "DeleteCriticalSection",
-            func: impls::DeleteCriticalSection,
+            func: shims::Handler::Sync(impls::DeleteCriticalSection),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const DeleteFileA: Shim = Shim {
+        pub const DeleteFileA: shims::Shim = shims::Shim {
             name: "DeleteFileA",
-            func: impls::DeleteFileA,
+            func: shims::Handler::Sync(impls::DeleteFileA),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const DisableThreadLibraryCalls: Shim = Shim {
+        pub const DisableThreadLibraryCalls: shims::Shim = shims::Shim {
             name: "DisableThreadLibraryCalls",
-            func: impls::DisableThreadLibraryCalls,
+            func: shims::Handler::Sync(impls::DisableThreadLibraryCalls),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const EnterCriticalSection: Shim = Shim {
+        pub const EnterCriticalSection: shims::Shim = shims::Shim {
             name: "EnterCriticalSection",
-            func: impls::EnterCriticalSection,
+            func: shims::Handler::Sync(impls::EnterCriticalSection),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const ExitProcess: Shim = Shim {
+        pub const ExitProcess: shims::Shim = shims::Shim {
             name: "ExitProcess",
-            func: impls::ExitProcess,
+            func: shims::Handler::Sync(impls::ExitProcess),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const FileTimeToSystemTime: Shim = Shim {
+        pub const FileTimeToSystemTime: shims::Shim = shims::Shim {
             name: "FileTimeToSystemTime",
-            func: impls::FileTimeToSystemTime,
+            func: shims::Handler::Sync(impls::FileTimeToSystemTime),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const FindClose: Shim = Shim {
+        pub const FindClose: shims::Shim = shims::Shim {
             name: "FindClose",
-            func: impls::FindClose,
+            func: shims::Handler::Sync(impls::FindClose),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const FindFirstFileA: Shim = Shim {
+        pub const FindFirstFileA: shims::Shim = shims::Shim {
             name: "FindFirstFileA",
-            func: impls::FindFirstFileA,
+            func: shims::Handler::Sync(impls::FindFirstFileA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const FindNextFileA: Shim = Shim {
+        pub const FindNextFileA: shims::Shim = shims::Shim {
             name: "FindNextFileA",
-            func: impls::FindNextFileA,
+            func: shims::Handler::Sync(impls::FindNextFileA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const FindResourceA: Shim = Shim {
+        pub const FindResourceA: shims::Shim = shims::Shim {
             name: "FindResourceA",
-            func: impls::FindResourceA,
+            func: shims::Handler::Sync(impls::FindResourceA),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const FindResourceW: Shim = Shim {
+        pub const FindResourceW: shims::Shim = shims::Shim {
             name: "FindResourceW",
-            func: impls::FindResourceW,
+            func: shims::Handler::Sync(impls::FindResourceW),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const FormatMessageA: Shim = Shim {
+        pub const FormatMessageA: shims::Shim = shims::Shim {
             name: "FormatMessageA",
-            func: impls::FormatMessageA,
+            func: shims::Handler::Sync(impls::FormatMessageA),
             stack_consumed: 28u32,
-            is_async: false,
         };
-        pub const FormatMessageW: Shim = Shim {
+        pub const FormatMessageW: shims::Shim = shims::Shim {
             name: "FormatMessageW",
-            func: impls::FormatMessageW,
+            func: shims::Handler::Sync(impls::FormatMessageW),
             stack_consumed: 28u32,
-            is_async: false,
         };
-        pub const FreeEnvironmentStringsA: Shim = Shim {
+        pub const FreeEnvironmentStringsA: shims::Shim = shims::Shim {
             name: "FreeEnvironmentStringsA",
-            func: impls::FreeEnvironmentStringsA,
+            func: shims::Handler::Sync(impls::FreeEnvironmentStringsA),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const FreeLibrary: Shim = Shim {
+        pub const FreeLibrary: shims::Shim = shims::Shim {
             name: "FreeLibrary",
-            func: impls::FreeLibrary,
+            func: shims::Handler::Sync(impls::FreeLibrary),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetACP: Shim = Shim {
+        pub const GetACP: shims::Shim = shims::Shim {
             name: "GetACP",
-            func: impls::GetACP,
+            func: shims::Handler::Sync(impls::GetACP),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetCPInfo: Shim = Shim {
+        pub const GetCPInfo: shims::Shim = shims::Shim {
             name: "GetCPInfo",
-            func: impls::GetCPInfo,
+            func: shims::Handler::Sync(impls::GetCPInfo),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetCommandLineA: Shim = Shim {
+        pub const GetCommandLineA: shims::Shim = shims::Shim {
             name: "GetCommandLineA",
-            func: impls::GetCommandLineA,
+            func: shims::Handler::Sync(impls::GetCommandLineA),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetCommandLineW: Shim = Shim {
+        pub const GetCommandLineW: shims::Shim = shims::Shim {
             name: "GetCommandLineW",
-            func: impls::GetCommandLineW,
+            func: shims::Handler::Sync(impls::GetCommandLineW),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetConsoleMode: Shim = Shim {
+        pub const GetConsoleMode: shims::Shim = shims::Shim {
             name: "GetConsoleMode",
-            func: impls::GetConsoleMode,
+            func: shims::Handler::Sync(impls::GetConsoleMode),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetConsoleScreenBufferInfo: Shim = Shim {
+        pub const GetConsoleScreenBufferInfo: shims::Shim = shims::Shim {
             name: "GetConsoleScreenBufferInfo",
-            func: impls::GetConsoleScreenBufferInfo,
+            func: shims::Handler::Sync(impls::GetConsoleScreenBufferInfo),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetCurrentDirectoryA: Shim = Shim {
+        pub const GetCurrentDirectoryA: shims::Shim = shims::Shim {
             name: "GetCurrentDirectoryA",
-            func: impls::GetCurrentDirectoryA,
+            func: shims::Handler::Sync(impls::GetCurrentDirectoryA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetCurrentProcessId: Shim = Shim {
+        pub const GetCurrentProcessId: shims::Shim = shims::Shim {
             name: "GetCurrentProcessId",
-            func: impls::GetCurrentProcessId,
+            func: shims::Handler::Sync(impls::GetCurrentProcessId),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetCurrentThread: Shim = Shim {
+        pub const GetCurrentThread: shims::Shim = shims::Shim {
             name: "GetCurrentThread",
-            func: impls::GetCurrentThread,
+            func: shims::Handler::Sync(impls::GetCurrentThread),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetCurrentThreadId: Shim = Shim {
+        pub const GetCurrentThreadId: shims::Shim = shims::Shim {
             name: "GetCurrentThreadId",
-            func: impls::GetCurrentThreadId,
+            func: shims::Handler::Sync(impls::GetCurrentThreadId),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetEnvironmentStrings: Shim = Shim {
+        pub const GetEnvironmentStrings: shims::Shim = shims::Shim {
             name: "GetEnvironmentStrings",
-            func: impls::GetEnvironmentStrings,
+            func: shims::Handler::Sync(impls::GetEnvironmentStrings),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetEnvironmentStringsW: Shim = Shim {
+        pub const GetEnvironmentStringsW: shims::Shim = shims::Shim {
             name: "GetEnvironmentStringsW",
-            func: impls::GetEnvironmentStringsW,
+            func: shims::Handler::Sync(impls::GetEnvironmentStringsW),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetEnvironmentVariableA: Shim = Shim {
+        pub const GetEnvironmentVariableA: shims::Shim = shims::Shim {
             name: "GetEnvironmentVariableA",
-            func: impls::GetEnvironmentVariableA,
+            func: shims::Handler::Sync(impls::GetEnvironmentVariableA),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const GetEnvironmentVariableW: Shim = Shim {
+        pub const GetEnvironmentVariableW: shims::Shim = shims::Shim {
             name: "GetEnvironmentVariableW",
-            func: impls::GetEnvironmentVariableW,
+            func: shims::Handler::Sync(impls::GetEnvironmentVariableW),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const GetFileAttributesA: Shim = Shim {
+        pub const GetFileAttributesA: shims::Shim = shims::Shim {
             name: "GetFileAttributesA",
-            func: impls::GetFileAttributesA,
+            func: shims::Handler::Sync(impls::GetFileAttributesA),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetFileInformationByHandle: Shim = Shim {
+        pub const GetFileInformationByHandle: shims::Shim = shims::Shim {
             name: "GetFileInformationByHandle",
-            func: impls::GetFileInformationByHandle,
+            func: shims::Handler::Sync(impls::GetFileInformationByHandle),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetFileSize: Shim = Shim {
+        pub const GetFileSize: shims::Shim = shims::Shim {
             name: "GetFileSize",
-            func: impls::GetFileSize,
+            func: shims::Handler::Sync(impls::GetFileSize),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetFileTime: Shim = Shim {
+        pub const GetFileTime: shims::Shim = shims::Shim {
             name: "GetFileTime",
-            func: impls::GetFileTime,
+            func: shims::Handler::Sync(impls::GetFileTime),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const GetFileType: Shim = Shim {
+        pub const GetFileType: shims::Shim = shims::Shim {
             name: "GetFileType",
-            func: impls::GetFileType,
+            func: shims::Handler::Sync(impls::GetFileType),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetFullPathNameA: Shim = Shim {
+        pub const GetFullPathNameA: shims::Shim = shims::Shim {
             name: "GetFullPathNameA",
-            func: impls::GetFullPathNameA,
+            func: shims::Handler::Sync(impls::GetFullPathNameA),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const GetFullPathNameW: Shim = Shim {
+        pub const GetFullPathNameW: shims::Shim = shims::Shim {
             name: "GetFullPathNameW",
-            func: impls::GetFullPathNameW,
+            func: shims::Handler::Sync(impls::GetFullPathNameW),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const GetLastError: Shim = Shim {
+        pub const GetLastError: shims::Shim = shims::Shim {
             name: "GetLastError",
-            func: impls::GetLastError,
+            func: shims::Handler::Sync(impls::GetLastError),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetLocalTime: Shim = Shim {
+        pub const GetLocalTime: shims::Shim = shims::Shim {
             name: "GetLocalTime",
-            func: impls::GetLocalTime,
+            func: shims::Handler::Sync(impls::GetLocalTime),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetModuleFileNameA: Shim = Shim {
+        pub const GetModuleFileNameA: shims::Shim = shims::Shim {
             name: "GetModuleFileNameA",
-            func: impls::GetModuleFileNameA,
+            func: shims::Handler::Sync(impls::GetModuleFileNameA),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const GetModuleFileNameW: Shim = Shim {
+        pub const GetModuleFileNameW: shims::Shim = shims::Shim {
             name: "GetModuleFileNameW",
-            func: impls::GetModuleFileNameW,
+            func: shims::Handler::Sync(impls::GetModuleFileNameW),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const GetModuleHandleA: Shim = Shim {
+        pub const GetModuleHandleA: shims::Shim = shims::Shim {
             name: "GetModuleHandleA",
-            func: impls::GetModuleHandleA,
+            func: shims::Handler::Sync(impls::GetModuleHandleA),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetModuleHandleExW: Shim = Shim {
+        pub const GetModuleHandleExW: shims::Shim = shims::Shim {
             name: "GetModuleHandleExW",
-            func: impls::GetModuleHandleExW,
+            func: shims::Handler::Sync(impls::GetModuleHandleExW),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const GetModuleHandleW: Shim = Shim {
+        pub const GetModuleHandleW: shims::Shim = shims::Shim {
             name: "GetModuleHandleW",
-            func: impls::GetModuleHandleW,
+            func: shims::Handler::Sync(impls::GetModuleHandleW),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetPrivateProfileIntW: Shim = Shim {
+        pub const GetPrivateProfileIntW: shims::Shim = shims::Shim {
             name: "GetPrivateProfileIntW",
-            func: impls::GetPrivateProfileIntW,
+            func: shims::Handler::Sync(impls::GetPrivateProfileIntW),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const GetPrivateProfileStringW: Shim = Shim {
+        pub const GetPrivateProfileStringW: shims::Shim = shims::Shim {
             name: "GetPrivateProfileStringW",
-            func: impls::GetPrivateProfileStringW,
+            func: shims::Handler::Sync(impls::GetPrivateProfileStringW),
             stack_consumed: 24u32,
-            is_async: false,
         };
-        pub const GetProcAddress: Shim = Shim {
+        pub const GetProcAddress: shims::Shim = shims::Shim {
             name: "GetProcAddress",
-            func: impls::GetProcAddress,
+            func: shims::Handler::Sync(impls::GetProcAddress),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetProcessHeap: Shim = Shim {
+        pub const GetProcessHeap: shims::Shim = shims::Shim {
             name: "GetProcessHeap",
-            func: impls::GetProcessHeap,
+            func: shims::Handler::Sync(impls::GetProcessHeap),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetProfileIntW: Shim = Shim {
+        pub const GetProfileIntW: shims::Shim = shims::Shim {
             name: "GetProfileIntW",
-            func: impls::GetProfileIntW,
+            func: shims::Handler::Sync(impls::GetProfileIntW),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const GetProfileStringW: Shim = Shim {
+        pub const GetProfileStringW: shims::Shim = shims::Shim {
             name: "GetProfileStringW",
-            func: impls::GetProfileStringW,
+            func: shims::Handler::Sync(impls::GetProfileStringW),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const GetStartupInfoA: Shim = Shim {
+        pub const GetStartupInfoA: shims::Shim = shims::Shim {
             name: "GetStartupInfoA",
-            func: impls::GetStartupInfoA,
+            func: shims::Handler::Sync(impls::GetStartupInfoA),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetStartupInfoW: Shim = Shim {
+        pub const GetStartupInfoW: shims::Shim = shims::Shim {
             name: "GetStartupInfoW",
-            func: impls::GetStartupInfoW,
+            func: shims::Handler::Sync(impls::GetStartupInfoW),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetStdHandle: Shim = Shim {
+        pub const GetStdHandle: shims::Shim = shims::Shim {
             name: "GetStdHandle",
-            func: impls::GetStdHandle,
+            func: shims::Handler::Sync(impls::GetStdHandle),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetSystemDirectoryA: Shim = Shim {
+        pub const GetSystemDirectoryA: shims::Shim = shims::Shim {
             name: "GetSystemDirectoryA",
-            func: impls::GetSystemDirectoryA,
+            func: shims::Handler::Sync(impls::GetSystemDirectoryA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetSystemTime: Shim = Shim {
+        pub const GetSystemTime: shims::Shim = shims::Shim {
             name: "GetSystemTime",
-            func: impls::GetSystemTime,
+            func: shims::Handler::Sync(impls::GetSystemTime),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetSystemTimeAsFileTime: Shim = Shim {
+        pub const GetSystemTimeAsFileTime: shims::Shim = shims::Shim {
             name: "GetSystemTimeAsFileTime",
-            func: impls::GetSystemTimeAsFileTime,
+            func: shims::Handler::Sync(impls::GetSystemTimeAsFileTime),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetTickCount: Shim = Shim {
+        pub const GetTickCount: shims::Shim = shims::Shim {
             name: "GetTickCount",
-            func: impls::GetTickCount,
+            func: shims::Handler::Sync(impls::GetTickCount),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetTimeZoneInformation: Shim = Shim {
+        pub const GetTimeZoneInformation: shims::Shim = shims::Shim {
             name: "GetTimeZoneInformation",
-            func: impls::GetTimeZoneInformation,
+            func: shims::Handler::Sync(impls::GetTimeZoneInformation),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetVersion: Shim = Shim {
+        pub const GetVersion: shims::Shim = shims::Shim {
             name: "GetVersion",
-            func: impls::GetVersion,
+            func: shims::Handler::Sync(impls::GetVersion),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetVersionExA: Shim = Shim {
+        pub const GetVersionExA: shims::Shim = shims::Shim {
             name: "GetVersionExA",
-            func: impls::GetVersionExA,
+            func: shims::Handler::Sync(impls::GetVersionExA),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetWindowsDirectoryA: Shim = Shim {
+        pub const GetWindowsDirectoryA: shims::Shim = shims::Shim {
             name: "GetWindowsDirectoryA",
-            func: impls::GetWindowsDirectoryA,
+            func: shims::Handler::Sync(impls::GetWindowsDirectoryA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GlobalAlloc: Shim = Shim {
+        pub const GlobalAlloc: shims::Shim = shims::Shim {
             name: "GlobalAlloc",
-            func: impls::GlobalAlloc,
+            func: shims::Handler::Sync(impls::GlobalAlloc),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GlobalFlags: Shim = Shim {
+        pub const GlobalFlags: shims::Shim = shims::Shim {
             name: "GlobalFlags",
-            func: impls::GlobalFlags,
+            func: shims::Handler::Sync(impls::GlobalFlags),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GlobalFree: Shim = Shim {
+        pub const GlobalFree: shims::Shim = shims::Shim {
             name: "GlobalFree",
-            func: impls::GlobalFree,
+            func: shims::Handler::Sync(impls::GlobalFree),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GlobalReAlloc: Shim = Shim {
+        pub const GlobalReAlloc: shims::Shim = shims::Shim {
             name: "GlobalReAlloc",
-            func: impls::GlobalReAlloc,
+            func: shims::Handler::Sync(impls::GlobalReAlloc),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const HeapAlloc: Shim = Shim {
+        pub const HeapAlloc: shims::Shim = shims::Shim {
             name: "HeapAlloc",
-            func: impls::HeapAlloc,
+            func: shims::Handler::Sync(impls::HeapAlloc),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const HeapCreate: Shim = Shim {
+        pub const HeapCreate: shims::Shim = shims::Shim {
             name: "HeapCreate",
-            func: impls::HeapCreate,
+            func: shims::Handler::Sync(impls::HeapCreate),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const HeapDestroy: Shim = Shim {
+        pub const HeapDestroy: shims::Shim = shims::Shim {
             name: "HeapDestroy",
-            func: impls::HeapDestroy,
+            func: shims::Handler::Sync(impls::HeapDestroy),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const HeapFree: Shim = Shim {
+        pub const HeapFree: shims::Shim = shims::Shim {
             name: "HeapFree",
-            func: impls::HeapFree,
+            func: shims::Handler::Sync(impls::HeapFree),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const HeapReAlloc: Shim = Shim {
+        pub const HeapReAlloc: shims::Shim = shims::Shim {
             name: "HeapReAlloc",
-            func: impls::HeapReAlloc,
+            func: shims::Handler::Sync(impls::HeapReAlloc),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const HeapSetInformation: Shim = Shim {
+        pub const HeapSetInformation: shims::Shim = shims::Shim {
             name: "HeapSetInformation",
-            func: impls::HeapSetInformation,
+            func: shims::Handler::Sync(impls::HeapSetInformation),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const HeapSize: Shim = Shim {
+        pub const HeapSize: shims::Shim = shims::Shim {
             name: "HeapSize",
-            func: impls::HeapSize,
+            func: shims::Handler::Sync(impls::HeapSize),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const InitOnceBeginInitialize: Shim = Shim {
+        pub const InitOnceBeginInitialize: shims::Shim = shims::Shim {
             name: "InitOnceBeginInitialize",
-            func: impls::InitOnceBeginInitialize,
+            func: shims::Handler::Sync(impls::InitOnceBeginInitialize),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const InitOnceComplete: Shim = Shim {
+        pub const InitOnceComplete: shims::Shim = shims::Shim {
             name: "InitOnceComplete",
-            func: impls::InitOnceComplete,
+            func: shims::Handler::Sync(impls::InitOnceComplete),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const InitializeCriticalSection: Shim = Shim {
+        pub const InitializeCriticalSection: shims::Shim = shims::Shim {
             name: "InitializeCriticalSection",
-            func: impls::InitializeCriticalSection,
+            func: shims::Handler::Sync(impls::InitializeCriticalSection),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const InitializeCriticalSectionAndSpinCount: Shim = Shim {
+        pub const InitializeCriticalSectionAndSpinCount: shims::Shim = shims::Shim {
             name: "InitializeCriticalSectionAndSpinCount",
-            func: impls::InitializeCriticalSectionAndSpinCount,
+            func: shims::Handler::Sync(impls::InitializeCriticalSectionAndSpinCount),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const InitializeCriticalSectionEx: Shim = Shim {
+        pub const InitializeCriticalSectionEx: shims::Shim = shims::Shim {
             name: "InitializeCriticalSectionEx",
-            func: impls::InitializeCriticalSectionEx,
+            func: shims::Handler::Sync(impls::InitializeCriticalSectionEx),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const InitializeSListHead: Shim = Shim {
+        pub const InitializeSListHead: shims::Shim = shims::Shim {
             name: "InitializeSListHead",
-            func: impls::InitializeSListHead,
+            func: shims::Handler::Sync(impls::InitializeSListHead),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const InterlockedIncrement: Shim = Shim {
+        pub const InterlockedIncrement: shims::Shim = shims::Shim {
             name: "InterlockedIncrement",
-            func: impls::InterlockedIncrement,
+            func: shims::Handler::Sync(impls::InterlockedIncrement),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const IsBadReadPtr: Shim = Shim {
+        pub const IsBadReadPtr: shims::Shim = shims::Shim {
             name: "IsBadReadPtr",
-            func: impls::IsBadReadPtr,
+            func: shims::Handler::Sync(impls::IsBadReadPtr),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const IsBadWritePtr: Shim = Shim {
+        pub const IsBadWritePtr: shims::Shim = shims::Shim {
             name: "IsBadWritePtr",
-            func: impls::IsBadWritePtr,
+            func: shims::Handler::Sync(impls::IsBadWritePtr),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const IsDBCSLeadByte: Shim = Shim {
+        pub const IsDBCSLeadByte: shims::Shim = shims::Shim {
             name: "IsDBCSLeadByte",
-            func: impls::IsDBCSLeadByte,
+            func: shims::Handler::Sync(impls::IsDBCSLeadByte),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const IsDBCSLeadByteEx: Shim = Shim {
+        pub const IsDBCSLeadByteEx: shims::Shim = shims::Shim {
             name: "IsDBCSLeadByteEx",
-            func: impls::IsDBCSLeadByteEx,
+            func: shims::Handler::Sync(impls::IsDBCSLeadByteEx),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const IsDebuggerPresent: Shim = Shim {
+        pub const IsDebuggerPresent: shims::Shim = shims::Shim {
             name: "IsDebuggerPresent",
-            func: impls::IsDebuggerPresent,
+            func: shims::Handler::Sync(impls::IsDebuggerPresent),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const IsProcessorFeaturePresent: Shim = Shim {
+        pub const IsProcessorFeaturePresent: shims::Shim = shims::Shim {
             name: "IsProcessorFeaturePresent",
-            func: impls::IsProcessorFeaturePresent,
+            func: shims::Handler::Sync(impls::IsProcessorFeaturePresent),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const IsValidCodePage: Shim = Shim {
+        pub const IsValidCodePage: shims::Shim = shims::Shim {
             name: "IsValidCodePage",
-            func: impls::IsValidCodePage,
+            func: shims::Handler::Sync(impls::IsValidCodePage),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const LeaveCriticalSection: Shim = Shim {
+        pub const LeaveCriticalSection: shims::Shim = shims::Shim {
             name: "LeaveCriticalSection",
-            func: impls::LeaveCriticalSection,
+            func: shims::Handler::Sync(impls::LeaveCriticalSection),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const LoadLibraryA: Shim = Shim {
+        pub const LoadLibraryA: shims::Shim = shims::Shim {
             name: "LoadLibraryA",
-            func: impls::LoadLibraryA,
+            func: shims::Handler::Sync(impls::LoadLibraryA),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const LoadLibraryExW: Shim = Shim {
+        pub const LoadLibraryExW: shims::Shim = shims::Shim {
             name: "LoadLibraryExW",
-            func: impls::LoadLibraryExW,
+            func: shims::Handler::Sync(impls::LoadLibraryExW),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const LoadResource: Shim = Shim {
+        pub const LoadResource: shims::Shim = shims::Shim {
             name: "LoadResource",
-            func: impls::LoadResource,
+            func: shims::Handler::Sync(impls::LoadResource),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const LocalAlloc: Shim = Shim {
+        pub const LocalAlloc: shims::Shim = shims::Shim {
             name: "LocalAlloc",
-            func: impls::LocalAlloc,
+            func: shims::Handler::Sync(impls::LocalAlloc),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const LocalFree: Shim = Shim {
+        pub const LocalFree: shims::Shim = shims::Shim {
             name: "LocalFree",
-            func: impls::LocalFree,
+            func: shims::Handler::Sync(impls::LocalFree),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const LockResource: Shim = Shim {
+        pub const LockResource: shims::Shim = shims::Shim {
             name: "LockResource",
-            func: impls::LockResource,
+            func: shims::Handler::Sync(impls::LockResource),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const MulDiv: Shim = Shim {
+        pub const MulDiv: shims::Shim = shims::Shim {
             name: "MulDiv",
-            func: impls::MulDiv,
+            func: shims::Handler::Sync(impls::MulDiv),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const MultiByteToWideChar: Shim = Shim {
+        pub const MultiByteToWideChar: shims::Shim = shims::Shim {
             name: "MultiByteToWideChar",
-            func: impls::MultiByteToWideChar,
+            func: shims::Handler::Sync(impls::MultiByteToWideChar),
             stack_consumed: 24u32,
-            is_async: false,
         };
-        pub const NtCurrentTeb: Shim = Shim {
+        pub const NtCurrentTeb: shims::Shim = shims::Shim {
             name: "NtCurrentTeb",
-            func: impls::NtCurrentTeb,
+            func: shims::Handler::Sync(impls::NtCurrentTeb),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const OutputDebugStringA: Shim = Shim {
+        pub const OutputDebugStringA: shims::Shim = shims::Shim {
             name: "OutputDebugStringA",
-            func: impls::OutputDebugStringA,
+            func: shims::Handler::Sync(impls::OutputDebugStringA),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const QueryPerformanceCounter: Shim = Shim {
+        pub const QueryPerformanceCounter: shims::Shim = shims::Shim {
             name: "QueryPerformanceCounter",
-            func: impls::QueryPerformanceCounter,
+            func: shims::Handler::Sync(impls::QueryPerformanceCounter),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const QueryPerformanceFrequency: Shim = Shim {
+        pub const QueryPerformanceFrequency: shims::Shim = shims::Shim {
             name: "QueryPerformanceFrequency",
-            func: impls::QueryPerformanceFrequency,
+            func: shims::Handler::Sync(impls::QueryPerformanceFrequency),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const ReadFile: Shim = Shim {
+        pub const ReadFile: shims::Shim = shims::Shim {
             name: "ReadFile",
-            func: impls::ReadFile,
+            func: shims::Handler::Sync(impls::ReadFile),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const ReleaseSRWLockExclusive: Shim = Shim {
+        pub const ReleaseSRWLockExclusive: shims::Shim = shims::Shim {
             name: "ReleaseSRWLockExclusive",
-            func: impls::ReleaseSRWLockExclusive,
+            func: shims::Handler::Sync(impls::ReleaseSRWLockExclusive),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const ReleaseSRWLockShared: Shim = Shim {
+        pub const ReleaseSRWLockShared: shims::Shim = shims::Shim {
             name: "ReleaseSRWLockShared",
-            func: impls::ReleaseSRWLockShared,
+            func: shims::Handler::Sync(impls::ReleaseSRWLockShared),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const RemoveDirectoryA: Shim = Shim {
+        pub const RemoveDirectoryA: shims::Shim = shims::Shim {
             name: "RemoveDirectoryA",
-            func: impls::RemoveDirectoryA,
+            func: shims::Handler::Sync(impls::RemoveDirectoryA),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const SetConsoleCtrlHandler: Shim = Shim {
+        pub const SetConsoleCtrlHandler: shims::Shim = shims::Shim {
             name: "SetConsoleCtrlHandler",
-            func: impls::SetConsoleCtrlHandler,
+            func: shims::Handler::Sync(impls::SetConsoleCtrlHandler),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const SetEndOfFile: Shim = Shim {
+        pub const SetEndOfFile: shims::Shim = shims::Shim {
             name: "SetEndOfFile",
-            func: impls::SetEndOfFile,
+            func: shims::Handler::Sync(impls::SetEndOfFile),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const SetEvent: Shim = Shim {
+        pub const SetEvent: shims::Shim = shims::Shim {
             name: "SetEvent",
-            func: impls::SetEvent,
+            func: shims::Handler::Sync(impls::SetEvent),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const SetFileAttributesA: Shim = Shim {
+        pub const SetFileAttributesA: shims::Shim = shims::Shim {
             name: "SetFileAttributesA",
-            func: impls::SetFileAttributesA,
+            func: shims::Handler::Sync(impls::SetFileAttributesA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const SetFilePointer: Shim = Shim {
+        pub const SetFilePointer: shims::Shim = shims::Shim {
             name: "SetFilePointer",
-            func: impls::SetFilePointer,
+            func: shims::Handler::Sync(impls::SetFilePointer),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const SetFileTime: Shim = Shim {
+        pub const SetFileTime: shims::Shim = shims::Shim {
             name: "SetFileTime",
-            func: impls::SetFileTime,
+            func: shims::Handler::Sync(impls::SetFileTime),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const SetHandleCount: Shim = Shim {
+        pub const SetHandleCount: shims::Shim = shims::Shim {
             name: "SetHandleCount",
-            func: impls::SetHandleCount,
+            func: shims::Handler::Sync(impls::SetHandleCount),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const SetLastError: Shim = Shim {
+        pub const SetLastError: shims::Shim = shims::Shim {
             name: "SetLastError",
-            func: impls::SetLastError,
+            func: shims::Handler::Sync(impls::SetLastError),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const SetPriorityClass: Shim = Shim {
+        pub const SetPriorityClass: shims::Shim = shims::Shim {
             name: "SetPriorityClass",
-            func: impls::SetPriorityClass,
+            func: shims::Handler::Sync(impls::SetPriorityClass),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const SetStdHandle: Shim = Shim {
+        pub const SetStdHandle: shims::Shim = shims::Shim {
             name: "SetStdHandle",
-            func: impls::SetStdHandle,
+            func: shims::Handler::Sync(impls::SetStdHandle),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const SetThreadDescription: Shim = Shim {
+        pub const SetThreadDescription: shims::Shim = shims::Shim {
             name: "SetThreadDescription",
-            func: impls::SetThreadDescription,
+            func: shims::Handler::Sync(impls::SetThreadDescription),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const SetThreadPriority: Shim = Shim {
+        pub const SetThreadPriority: shims::Shim = shims::Shim {
             name: "SetThreadPriority",
-            func: impls::SetThreadPriority,
+            func: shims::Handler::Sync(impls::SetThreadPriority),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const SetThreadStackGuarantee: Shim = Shim {
+        pub const SetThreadStackGuarantee: shims::Shim = shims::Shim {
             name: "SetThreadStackGuarantee",
-            func: impls::SetThreadStackGuarantee,
+            func: shims::Handler::Sync(impls::SetThreadStackGuarantee),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const SetUnhandledExceptionFilter: Shim = Shim {
+        pub const SetUnhandledExceptionFilter: shims::Shim = shims::Shim {
             name: "SetUnhandledExceptionFilter",
-            func: impls::SetUnhandledExceptionFilter,
+            func: shims::Handler::Sync(impls::SetUnhandledExceptionFilter),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const Sleep: Shim = Shim {
+        pub const Sleep: shims::Shim = shims::Shim {
             name: "Sleep",
-            func: impls::Sleep,
+            func: shims::Handler::Async(impls::Sleep),
             stack_consumed: 4u32,
-            is_async: true,
         };
-        pub const SystemTimeToFileTime: Shim = Shim {
+        pub const SystemTimeToFileTime: shims::Shim = shims::Shim {
             name: "SystemTimeToFileTime",
-            func: impls::SystemTimeToFileTime,
+            func: shims::Handler::Sync(impls::SystemTimeToFileTime),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const TlsAlloc: Shim = Shim {
+        pub const TlsAlloc: shims::Shim = shims::Shim {
             name: "TlsAlloc",
-            func: impls::TlsAlloc,
+            func: shims::Handler::Sync(impls::TlsAlloc),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const TlsFree: Shim = Shim {
+        pub const TlsFree: shims::Shim = shims::Shim {
             name: "TlsFree",
-            func: impls::TlsFree,
+            func: shims::Handler::Sync(impls::TlsFree),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const TlsGetValue: Shim = Shim {
+        pub const TlsGetValue: shims::Shim = shims::Shim {
             name: "TlsGetValue",
-            func: impls::TlsGetValue,
+            func: shims::Handler::Sync(impls::TlsGetValue),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const TlsSetValue: Shim = Shim {
+        pub const TlsSetValue: shims::Shim = shims::Shim {
             name: "TlsSetValue",
-            func: impls::TlsSetValue,
+            func: shims::Handler::Sync(impls::TlsSetValue),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const TryAcquireSRWLockExclusive: Shim = Shim {
+        pub const TryAcquireSRWLockExclusive: shims::Shim = shims::Shim {
             name: "TryAcquireSRWLockExclusive",
-            func: impls::TryAcquireSRWLockExclusive,
+            func: shims::Handler::Sync(impls::TryAcquireSRWLockExclusive),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const UnhandledExceptionFilter: Shim = Shim {
+        pub const UnhandledExceptionFilter: shims::Shim = shims::Shim {
             name: "UnhandledExceptionFilter",
-            func: impls::UnhandledExceptionFilter,
+            func: shims::Handler::Sync(impls::UnhandledExceptionFilter),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const VirtualAlloc: Shim = Shim {
+        pub const VirtualAlloc: shims::Shim = shims::Shim {
             name: "VirtualAlloc",
-            func: impls::VirtualAlloc,
+            func: shims::Handler::Sync(impls::VirtualAlloc),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const VirtualFree: Shim = Shim {
+        pub const VirtualFree: shims::Shim = shims::Shim {
             name: "VirtualFree",
-            func: impls::VirtualFree,
+            func: shims::Handler::Sync(impls::VirtualFree),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const VirtualProtect: Shim = Shim {
+        pub const VirtualProtect: shims::Shim = shims::Shim {
             name: "VirtualProtect",
-            func: impls::VirtualProtect,
+            func: shims::Handler::Sync(impls::VirtualProtect),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const VirtualQuery: Shim = Shim {
+        pub const VirtualQuery: shims::Shim = shims::Shim {
             name: "VirtualQuery",
-            func: impls::VirtualQuery,
+            func: shims::Handler::Sync(impls::VirtualQuery),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const WaitForSingleObject: Shim = Shim {
+        pub const WaitForSingleObject: shims::Shim = shims::Shim {
             name: "WaitForSingleObject",
-            func: impls::WaitForSingleObject,
+            func: shims::Handler::Sync(impls::WaitForSingleObject),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const WriteConsoleA: Shim = Shim {
+        pub const WriteConsoleA: shims::Shim = shims::Shim {
             name: "WriteConsoleA",
-            func: impls::WriteConsoleA,
+            func: shims::Handler::Sync(impls::WriteConsoleA),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const WriteConsoleW: Shim = Shim {
+        pub const WriteConsoleW: shims::Shim = shims::Shim {
             name: "WriteConsoleW",
-            func: impls::WriteConsoleW,
+            func: shims::Handler::Sync(impls::WriteConsoleW),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const WriteFile: Shim = Shim {
+        pub const WriteFile: shims::Shim = shims::Shim {
             name: "WriteFile",
-            func: impls::WriteFile,
+            func: shims::Handler::Sync(impls::WriteFile),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const lstrcmpiA: Shim = Shim {
+        pub const lstrcmpiA: shims::Shim = shims::Shim {
             name: "lstrcmpiA",
-            func: impls::lstrcmpiA,
+            func: shims::Handler::Sync(impls::lstrcmpiA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const lstrcpyA: Shim = Shim {
+        pub const lstrcpyA: shims::Shim = shims::Shim {
             name: "lstrcpyA",
-            func: impls::lstrcpyA,
+            func: shims::Handler::Sync(impls::lstrcpyA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const lstrcpyW: Shim = Shim {
+        pub const lstrcpyW: shims::Shim = shims::Shim {
             name: "lstrcpyW",
-            func: impls::lstrcpyW,
+            func: shims::Handler::Sync(impls::lstrcpyW),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const lstrlenA: Shim = Shim {
+        pub const lstrlenA: shims::Shim = shims::Shim {
             name: "lstrlenA",
-            func: impls::lstrlenA,
+            func: shims::Handler::Sync(impls::lstrlenA),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const lstrlenW: Shim = Shim {
+        pub const lstrlenW: shims::Shim = shims::Shim {
             name: "lstrlenW",
-            func: impls::lstrlenW,
+            func: shims::Handler::Sync(impls::lstrlenW),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const retrowin32_main: Shim = Shim {
+        pub const retrowin32_main: shims::Shim = shims::Shim {
             name: "retrowin32_main",
-            func: impls::retrowin32_main,
+            func: shims::Handler::Async(impls::retrowin32_main),
             stack_consumed: 4u32,
-            is_async: true,
         };
-        pub const retrowin32_thread_main: Shim = Shim {
+        pub const retrowin32_thread_main: shims::Shim = shims::Shim {
             name: "retrowin32_thread_main",
-            func: impls::retrowin32_thread_main,
+            func: shims::Handler::Async(impls::retrowin32_thread_main),
             stack_consumed: 8u32,
-            is_async: true,
         };
     }
     const EXPORTS: [Symbol; 148usize] = [
@@ -3805,12 +3551,11 @@ pub mod ntdll {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const NtReadFile: Shim = Shim {
+        use crate::shims;
+        pub const NtReadFile: shims::Shim = shims::Shim {
             name: "NtReadFile",
-            func: impls::NtReadFile,
+            func: shims::Handler::Sync(impls::NtReadFile),
             stack_consumed: 36u32,
-            is_async: false,
         };
     }
     const EXPORTS: [Symbol; 1usize] = [Symbol {
@@ -3835,7 +3580,7 @@ pub mod ole32 {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
+        use crate::shims;
     }
     const EXPORTS: [Symbol; 0usize] = [];
     pub const DLL: BuiltinDLL = BuiltinDLL {
@@ -3856,7 +3601,7 @@ pub mod oleaut32 {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
+        use crate::shims;
     }
     const EXPORTS: [Symbol; 0usize] = [];
     pub const DLL: BuiltinDLL = BuiltinDLL {
@@ -3874,44 +3619,29 @@ pub mod retrowin32_test {
         };
         use memory::Extensions;
         use winapi::retrowin32_test::*;
-        pub unsafe fn retrowin32_test_callback1(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn retrowin32_test_callback1(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let func = <u32>::from_stack(mem, esp + 4u32);
             let data = <u32>::from_stack(mem, esp + 8u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result =
-                        winapi::retrowin32_test::retrowin32_test_callback1(machine, func, data)
-                            .await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 8u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::retrowin32_test::retrowin32_test_callback1(
-                    machine, func, data
-                ));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::retrowin32_test::retrowin32_test_callback1(machine, func, data)
+                    .await
+                    .to_raw()
+            })
         }
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const retrowin32_test_callback1: Shim = Shim {
+        use crate::shims;
+        pub const retrowin32_test_callback1: shims::Shim = shims::Shim {
             name: "retrowin32_test_callback1",
-            func: impls::retrowin32_test_callback1,
+            func: shims::Handler::Async(impls::retrowin32_test_callback1),
             stack_consumed: 8u32,
-            is_async: true,
         };
     }
     const EXPORTS: [Symbol; 1usize] = [Symbol {
@@ -3965,55 +3695,35 @@ pub mod ucrtbase {
             let mem = machine.mem().detach();
             winapi::ucrtbase::_get_initial_narrow_environment(machine).to_raw()
         }
-        pub unsafe fn _initterm(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn _initterm(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let start = <u32>::from_stack(mem, esp + 4u32);
             let end = <u32>::from_stack(mem, esp + 8u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::ucrtbase::_initterm(machine, start, end).await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 0u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::ucrtbase::_initterm(machine, start, end));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::ucrtbase::_initterm(machine, start, end)
+                    .await
+                    .to_raw()
+            })
         }
-        pub unsafe fn _initterm_e(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn _initterm_e(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let start = <u32>::from_stack(mem, esp + 4u32);
             let end = <u32>::from_stack(mem, esp + 8u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::ucrtbase::_initterm_e(machine, start, end).await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 0u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::ucrtbase::_initterm_e(machine, start, end));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::ucrtbase::_initterm_e(machine, start, end)
+                    .await
+                    .to_raw()
+            })
         }
         pub unsafe fn _lock(machine: &mut Machine, esp: u32) -> u32 {
             let mem = machine.mem().detach();
@@ -4043,90 +3753,76 @@ pub mod ucrtbase {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const __dllonexit: Shim = Shim {
+        use crate::shims;
+        pub const __dllonexit: shims::Shim = shims::Shim {
             name: "__dllonexit",
-            func: impls::__dllonexit,
+            func: shims::Handler::Sync(impls::__dllonexit),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const __p___argc: Shim = Shim {
+        pub const __p___argc: shims::Shim = shims::Shim {
             name: "__p___argc",
-            func: impls::__p___argc,
+            func: shims::Handler::Sync(impls::__p___argc),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const __p___argv: Shim = Shim {
+        pub const __p___argv: shims::Shim = shims::Shim {
             name: "__p___argv",
-            func: impls::__p___argv,
+            func: shims::Handler::Sync(impls::__p___argv),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const __p__commode: Shim = Shim {
+        pub const __p__commode: shims::Shim = shims::Shim {
             name: "__p__commode",
-            func: impls::__p__commode,
+            func: shims::Handler::Sync(impls::__p__commode),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const __p__fmode: Shim = Shim {
+        pub const __p__fmode: shims::Shim = shims::Shim {
             name: "__p__fmode",
-            func: impls::__p__fmode,
+            func: shims::Handler::Sync(impls::__p__fmode),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const __set_app_type: Shim = Shim {
+        pub const __set_app_type: shims::Shim = shims::Shim {
             name: "__set_app_type",
-            func: impls::__set_app_type,
+            func: shims::Handler::Sync(impls::__set_app_type),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const _get_initial_narrow_environment: Shim = Shim {
+        pub const _get_initial_narrow_environment: shims::Shim = shims::Shim {
             name: "_get_initial_narrow_environment",
-            func: impls::_get_initial_narrow_environment,
+            func: shims::Handler::Sync(impls::_get_initial_narrow_environment),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const _initterm: Shim = Shim {
+        pub const _initterm: shims::Shim = shims::Shim {
             name: "_initterm",
-            func: impls::_initterm,
+            func: shims::Handler::Async(impls::_initterm),
             stack_consumed: 0u32,
-            is_async: true,
         };
-        pub const _initterm_e: Shim = Shim {
+        pub const _initterm_e: shims::Shim = shims::Shim {
             name: "_initterm_e",
-            func: impls::_initterm_e,
+            func: shims::Handler::Async(impls::_initterm_e),
             stack_consumed: 0u32,
-            is_async: true,
         };
-        pub const _lock: Shim = Shim {
+        pub const _lock: shims::Shim = shims::Shim {
             name: "_lock",
-            func: impls::_lock,
+            func: shims::Handler::Sync(impls::_lock),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const _unlock: Shim = Shim {
+        pub const _unlock: shims::Shim = shims::Shim {
             name: "_unlock",
-            func: impls::_unlock,
+            func: shims::Handler::Sync(impls::_unlock),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const exit: Shim = Shim {
+        pub const exit: shims::Shim = shims::Shim {
             name: "exit",
-            func: impls::exit,
+            func: shims::Handler::Sync(impls::exit),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const free: Shim = Shim {
+        pub const free: shims::Shim = shims::Shim {
             name: "free",
-            func: impls::free,
+            func: shims::Handler::Sync(impls::free),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const malloc: Shim = Shim {
+        pub const malloc: shims::Shim = shims::Shim {
             name: "malloc",
-            func: impls::malloc,
+            func: shims::Handler::Sync(impls::malloc),
             stack_consumed: 0u32,
-            is_async: false,
         };
     }
     const EXPORTS: [Symbol; 14usize] = [
@@ -4232,30 +3928,26 @@ pub mod vcruntime140 {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const _CxxThrowException: Shim = Shim {
+        use crate::shims;
+        pub const _CxxThrowException: shims::Shim = shims::Shim {
             name: "_CxxThrowException",
-            func: impls::_CxxThrowException,
+            func: shims::Handler::Sync(impls::_CxxThrowException),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const memcmp: Shim = Shim {
+        pub const memcmp: shims::Shim = shims::Shim {
             name: "memcmp",
-            func: impls::memcmp,
+            func: shims::Handler::Sync(impls::memcmp),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const memcpy: Shim = Shim {
+        pub const memcpy: shims::Shim = shims::Shim {
             name: "memcpy",
-            func: impls::memcpy,
+            func: shims::Handler::Sync(impls::memcpy),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const memset: Shim = Shim {
+        pub const memset: shims::Shim = shims::Shim {
             name: "memset",
-            func: impls::memset,
+            func: shims::Handler::Sync(impls::memset),
             stack_consumed: 0u32,
-            is_async: false,
         };
     }
     const EXPORTS: [Symbol; 4usize] = [
@@ -4300,12 +3992,11 @@ pub mod version {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const GetFileVersionInfoSizeA: Shim = Shim {
+        use crate::shims;
+        pub const GetFileVersionInfoSizeA: shims::Shim = shims::Shim {
             name: "GetFileVersionInfoSizeA",
-            func: impls::GetFileVersionInfoSizeA,
+            func: shims::Handler::Sync(impls::GetFileVersionInfoSizeA),
             stack_consumed: 8u32,
-            is_async: false,
         };
     }
     const EXPORTS: [Symbol; 1usize] = [Symbol {
@@ -4383,7 +4074,10 @@ pub mod user32 {
             )
             .to_raw()
         }
-        pub unsafe fn CreateWindowExA(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn CreateWindowExA(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let dwExStyle = <Result<WindowStyleEx, u32>>::from_stack(mem, esp + 4u32);
             let lpClassName = <CreateWindowClassName<'_, str>>::from_stack(mem, esp + 8u32);
@@ -4397,39 +4091,10 @@ pub mod user32 {
             let hMenu = <u32>::from_stack(mem, esp + 40u32);
             let hInstance = <u32>::from_stack(mem, esp + 44u32);
             let lpParam = <u32>::from_stack(mem, esp + 48u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::user32::CreateWindowExA(
-                        machine,
-                        dwExStyle,
-                        lpClassName,
-                        lpWindowName,
-                        dwStyle,
-                        X,
-                        Y,
-                        nWidth,
-                        nHeight,
-                        hWndParent,
-                        hMenu,
-                        hInstance,
-                        lpParam,
-                    )
-                    .await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 48u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::user32::CreateWindowExA(
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::user32::CreateWindowExA(
                     machine,
                     dwExStyle,
                     lpClassName,
@@ -4442,12 +4107,16 @@ pub mod user32 {
                     hWndParent,
                     hMenu,
                     hInstance,
-                    lpParam
-                ));
-                crate::shims::call_sync(pin).to_raw()
-            }
+                    lpParam,
+                )
+                .await
+                .to_raw()
+            })
         }
-        pub unsafe fn CreateWindowExW(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn CreateWindowExW(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let dwExStyle = <Result<WindowStyleEx, u32>>::from_stack(mem, esp + 4u32);
             let lpClassName = <CreateWindowClassName<'_, Str16>>::from_stack(mem, esp + 8u32);
@@ -4461,39 +4130,10 @@ pub mod user32 {
             let hMenu = <u32>::from_stack(mem, esp + 40u32);
             let hInstance = <u32>::from_stack(mem, esp + 44u32);
             let lpParam = <u32>::from_stack(mem, esp + 48u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::user32::CreateWindowExW(
-                        machine,
-                        dwExStyle,
-                        lpClassName,
-                        lpWindowName,
-                        dwStyle,
-                        X,
-                        Y,
-                        nWidth,
-                        nHeight,
-                        hWndParent,
-                        hMenu,
-                        hInstance,
-                        lpParam,
-                    )
-                    .await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 48u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::user32::CreateWindowExW(
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::user32::CreateWindowExW(
                     machine,
                     dwExStyle,
                     lpClassName,
@@ -4506,70 +4146,45 @@ pub mod user32 {
                     hWndParent,
                     hMenu,
                     hInstance,
-                    lpParam
-                ));
-                crate::shims::call_sync(pin).to_raw()
-            }
+                    lpParam,
+                )
+                .await
+                .to_raw()
+            })
         }
-        pub unsafe fn DefWindowProcA(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn DefWindowProcA(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let hWnd = <HWND>::from_stack(mem, esp + 4u32);
             let msg = <Result<WM, u32>>::from_stack(mem, esp + 8u32);
             let wParam = <u32>::from_stack(mem, esp + 12u32);
             let lParam = <u32>::from_stack(mem, esp + 16u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result =
-                        winapi::user32::DefWindowProcA(machine, hWnd, msg, wParam, lParam).await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 16u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::user32::DefWindowProcA(
-                    machine, hWnd, msg, wParam, lParam
-                ));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::user32::DefWindowProcA(machine, hWnd, msg, wParam, lParam)
+                    .await
+                    .to_raw()
+            })
         }
-        pub unsafe fn DefWindowProcW(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn DefWindowProcW(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let hWnd = <HWND>::from_stack(mem, esp + 4u32);
             let msg = <Result<WM, u32>>::from_stack(mem, esp + 8u32);
             let wParam = <u32>::from_stack(mem, esp + 12u32);
             let lParam = <u32>::from_stack(mem, esp + 16u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result =
-                        winapi::user32::DefWindowProcW(machine, hWnd, msg, wParam, lParam).await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 16u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::user32::DefWindowProcW(
-                    machine, hWnd, msg, wParam, lParam
-                ));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::user32::DefWindowProcW(machine, hWnd, msg, wParam, lParam)
+                    .await
+                    .to_raw()
+            })
         }
         pub unsafe fn DestroyWindow(machine: &mut Machine, esp: u32) -> u32 {
             let mem = machine.mem().detach();
@@ -4610,53 +4225,33 @@ pub mod user32 {
             )
             .to_raw()
         }
-        pub unsafe fn DispatchMessageA(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn DispatchMessageA(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let lpMsg = <Option<&MSG>>::from_stack(mem, esp + 4u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::user32::DispatchMessageA(machine, lpMsg).await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 4u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::user32::DispatchMessageA(machine, lpMsg));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::user32::DispatchMessageA(machine, lpMsg)
+                    .await
+                    .to_raw()
+            })
         }
-        pub unsafe fn DispatchMessageW(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn DispatchMessageW(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let lpMsg = <Option<&MSG>>::from_stack(mem, esp + 4u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::user32::DispatchMessageW(machine, lpMsg).await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 4u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::user32::DispatchMessageW(machine, lpMsg));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::user32::DispatchMessageW(machine, lpMsg)
+                    .await
+                    .to_raw()
+            })
         }
         pub unsafe fn DrawTextW(machine: &mut Machine, esp: u32) -> u32 {
             let mem = machine.mem().detach();
@@ -4729,85 +4324,39 @@ pub mod user32 {
             let mem = machine.mem().detach();
             winapi::user32::GetLastActivePopup(machine).to_raw()
         }
-        pub unsafe fn GetMessageA(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn GetMessageA(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let lpMsg = <Option<&mut MSG>>::from_stack(mem, esp + 4u32);
             let hWnd = <HWND>::from_stack(mem, esp + 8u32);
             let wMsgFilterMin = <u32>::from_stack(mem, esp + 12u32);
             let wMsgFilterMax = <u32>::from_stack(mem, esp + 16u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::user32::GetMessageA(
-                        machine,
-                        lpMsg,
-                        hWnd,
-                        wMsgFilterMin,
-                        wMsgFilterMax,
-                    )
-                    .await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 16u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::user32::GetMessageA(
-                    machine,
-                    lpMsg,
-                    hWnd,
-                    wMsgFilterMin,
-                    wMsgFilterMax
-                ));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::user32::GetMessageA(machine, lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax)
+                    .await
+                    .to_raw()
+            })
         }
-        pub unsafe fn GetMessageW(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn GetMessageW(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let lpMsg = <Option<&mut MSG>>::from_stack(mem, esp + 4u32);
             let hWnd = <HWND>::from_stack(mem, esp + 8u32);
             let wMsgFilterMin = <u32>::from_stack(mem, esp + 12u32);
             let wMsgFilterMax = <u32>::from_stack(mem, esp + 16u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::user32::GetMessageW(
-                        machine,
-                        lpMsg,
-                        hWnd,
-                        wMsgFilterMin,
-                        wMsgFilterMax,
-                    )
-                    .await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 16u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::user32::GetMessageW(
-                    machine,
-                    lpMsg,
-                    hWnd,
-                    wMsgFilterMin,
-                    wMsgFilterMax
-                ));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::user32::GetMessageW(machine, lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax)
+                    .await
+                    .to_raw()
+            })
         }
         pub unsafe fn GetSystemMenu(machine: &mut Machine, esp: u32) -> u32 {
             let mem = machine.mem().detach();
@@ -5078,35 +4627,22 @@ pub mod user32 {
             let hdc = <HDC>::from_stack(mem, esp + 8u32);
             winapi::user32::ReleaseDC(machine, hwnd, hdc).to_raw()
         }
-        pub unsafe fn SendMessageA(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn SendMessageA(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let hWnd = <HWND>::from_stack(mem, esp + 4u32);
             let Msg = <Result<WM, u32>>::from_stack(mem, esp + 8u32);
             let wParam = <u32>::from_stack(mem, esp + 12u32);
             let lParam = <u32>::from_stack(mem, esp + 16u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result =
-                        winapi::user32::SendMessageA(machine, hWnd, Msg, wParam, lParam).await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 16u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::user32::SendMessageA(
-                    machine, hWnd, Msg, wParam, lParam
-                ));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::user32::SendMessageA(machine, hWnd, Msg, wParam, lParam)
+                    .await
+                    .to_raw()
+            })
         }
         pub unsafe fn SetCapture(machine: &mut Machine, esp: u32) -> u32 {
             let mem = machine.mem().detach();
@@ -5156,7 +4692,10 @@ pub mod user32 {
             let lpTimerFunc = <u32>::from_stack(mem, esp + 16u32);
             winapi::user32::SetTimer(machine, hWnd, nIDEvent, uElapse, lpTimerFunc).to_raw()
         }
-        pub unsafe fn SetWindowPos(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn SetWindowPos(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let hWnd = <HWND>::from_stack(mem, esp + 4u32);
             let hWndInsertAfter = <HWND>::from_stack(mem, esp + 8u32);
@@ -5165,45 +4704,13 @@ pub mod user32 {
             let cx = <i32>::from_stack(mem, esp + 20u32);
             let cy = <i32>::from_stack(mem, esp + 24u32);
             let uFlags = <Result<SWP, u32>>::from_stack(mem, esp + 28u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::user32::SetWindowPos(
-                        machine,
-                        hWnd,
-                        hWndInsertAfter,
-                        X,
-                        Y,
-                        cx,
-                        cy,
-                        uFlags,
-                    )
-                    .await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 28u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::user32::SetWindowPos(
-                    machine,
-                    hWnd,
-                    hWndInsertAfter,
-                    X,
-                    Y,
-                    cx,
-                    cy,
-                    uFlags
-                ));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::user32::SetWindowPos(machine, hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags)
+                    .await
+                    .to_raw()
+            })
         }
         pub unsafe fn SetWindowTextA(machine: &mut Machine, esp: u32) -> u32 {
             let mem = machine.mem().detach();
@@ -5216,30 +4723,20 @@ pub mod user32 {
             let bShow = <bool>::from_stack(mem, esp + 4u32);
             winapi::user32::ShowCursor(machine, bShow).to_raw()
         }
-        pub unsafe fn ShowWindow(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn ShowWindow(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let hWnd = <HWND>::from_stack(mem, esp + 4u32);
             let nCmdShow = <Result<SW, u32>>::from_stack(mem, esp + 8u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::user32::ShowWindow(machine, hWnd, nCmdShow).await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 8u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::user32::ShowWindow(machine, hWnd, nCmdShow));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::user32::ShowWindow(machine, hWnd, nCmdShow)
+                    .await
+                    .to_raw()
+            })
         }
         pub unsafe fn TranslateAcceleratorW(machine: &mut Machine, esp: u32) -> u32 {
             let mem = machine.mem().detach();
@@ -5253,29 +4750,17 @@ pub mod user32 {
             let lpMsg = <Option<&MSG>>::from_stack(mem, esp + 4u32);
             winapi::user32::TranslateMessage(machine, lpMsg).to_raw()
         }
-        pub unsafe fn UpdateWindow(machine: &mut Machine, esp: u32) -> u32 {
+        pub unsafe fn UpdateWindow(
+            machine: &mut Machine,
+            esp: u32,
+        ) -> std::pin::Pin<Box<dyn std::future::Future<Output = u32>>> {
             let mem = machine.mem().detach();
             let hWnd = <HWND>::from_stack(mem, esp + 4u32);
-            #[cfg(feature = "x86-emu")]
-            {
-                let m: *mut Machine = machine;
-                let result = async move {
-                    use memory::Extensions;
-                    let machine = unsafe { &mut *m };
-                    let result = winapi::user32::UpdateWindow(machine, hWnd).await;
-                    let regs = &mut machine.emu.x86.cpu_mut().regs;
-                    regs.eip = machine.emu.memory.mem().get_pod::<u32>(esp);
-                    *regs.get32_mut(x86::Register::ESP) += 4u32 + 4;
-                    regs.set32(x86::Register::EAX, result.to_raw());
-                };
-                machine.emu.x86.cpu_mut().call_async(Box::pin(result));
-                0
-            }
-            #[cfg(any(feature = "x86-64", feature = "x86-unicorn"))]
-            {
-                let pin = std::pin::pin!(winapi::user32::UpdateWindow(machine, hWnd));
-                crate::shims::call_sync(pin).to_raw()
-            }
+            let machine: *mut Machine = machine;
+            Box::pin(async move {
+                let machine = unsafe { &mut *machine };
+                winapi::user32::UpdateWindow(machine, hWnd).await.to_raw()
+            })
         }
         pub unsafe fn ValidateRect(machine: &mut Machine, esp: u32) -> u32 {
             let mem = machine.mem().detach();
@@ -5297,528 +4782,441 @@ pub mod user32 {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const AdjustWindowRect: Shim = Shim {
+        use crate::shims;
+        pub const AdjustWindowRect: shims::Shim = shims::Shim {
             name: "AdjustWindowRect",
-            func: impls::AdjustWindowRect,
+            func: shims::Handler::Sync(impls::AdjustWindowRect),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const AdjustWindowRectEx: Shim = Shim {
+        pub const AdjustWindowRectEx: shims::Shim = shims::Shim {
             name: "AdjustWindowRectEx",
-            func: impls::AdjustWindowRectEx,
+            func: shims::Handler::Sync(impls::AdjustWindowRectEx),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const AppendMenuA: Shim = Shim {
+        pub const AppendMenuA: shims::Shim = shims::Shim {
             name: "AppendMenuA",
-            func: impls::AppendMenuA,
+            func: shims::Handler::Sync(impls::AppendMenuA),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const BeginPaint: Shim = Shim {
+        pub const BeginPaint: shims::Shim = shims::Shim {
             name: "BeginPaint",
-            func: impls::BeginPaint,
+            func: shims::Handler::Sync(impls::BeginPaint),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const CheckMenuItem: Shim = Shim {
+        pub const CheckMenuItem: shims::Shim = shims::Shim {
             name: "CheckMenuItem",
-            func: impls::CheckMenuItem,
+            func: shims::Handler::Sync(impls::CheckMenuItem),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const ClientToScreen: Shim = Shim {
+        pub const ClientToScreen: shims::Shim = shims::Shim {
             name: "ClientToScreen",
-            func: impls::ClientToScreen,
+            func: shims::Handler::Sync(impls::ClientToScreen),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const CreateCursor: Shim = Shim {
+        pub const CreateCursor: shims::Shim = shims::Shim {
             name: "CreateCursor",
-            func: impls::CreateCursor,
+            func: shims::Handler::Sync(impls::CreateCursor),
             stack_consumed: 28u32,
-            is_async: false,
         };
-        pub const CreateWindowExA: Shim = Shim {
+        pub const CreateWindowExA: shims::Shim = shims::Shim {
             name: "CreateWindowExA",
-            func: impls::CreateWindowExA,
+            func: shims::Handler::Async(impls::CreateWindowExA),
             stack_consumed: 48u32,
-            is_async: true,
         };
-        pub const CreateWindowExW: Shim = Shim {
+        pub const CreateWindowExW: shims::Shim = shims::Shim {
             name: "CreateWindowExW",
-            func: impls::CreateWindowExW,
+            func: shims::Handler::Async(impls::CreateWindowExW),
             stack_consumed: 48u32,
-            is_async: true,
         };
-        pub const DefWindowProcA: Shim = Shim {
+        pub const DefWindowProcA: shims::Shim = shims::Shim {
             name: "DefWindowProcA",
-            func: impls::DefWindowProcA,
+            func: shims::Handler::Async(impls::DefWindowProcA),
             stack_consumed: 16u32,
-            is_async: true,
         };
-        pub const DefWindowProcW: Shim = Shim {
+        pub const DefWindowProcW: shims::Shim = shims::Shim {
             name: "DefWindowProcW",
-            func: impls::DefWindowProcW,
+            func: shims::Handler::Async(impls::DefWindowProcW),
             stack_consumed: 16u32,
-            is_async: true,
         };
-        pub const DestroyWindow: Shim = Shim {
+        pub const DestroyWindow: shims::Shim = shims::Shim {
             name: "DestroyWindow",
-            func: impls::DestroyWindow,
+            func: shims::Handler::Sync(impls::DestroyWindow),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const DialogBoxIndirectParamA: Shim = Shim {
+        pub const DialogBoxIndirectParamA: shims::Shim = shims::Shim {
             name: "DialogBoxIndirectParamA",
-            func: impls::DialogBoxIndirectParamA,
+            func: shims::Handler::Sync(impls::DialogBoxIndirectParamA),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const DialogBoxParamA: Shim = Shim {
+        pub const DialogBoxParamA: shims::Shim = shims::Shim {
             name: "DialogBoxParamA",
-            func: impls::DialogBoxParamA,
+            func: shims::Handler::Sync(impls::DialogBoxParamA),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const DispatchMessageA: Shim = Shim {
+        pub const DispatchMessageA: shims::Shim = shims::Shim {
             name: "DispatchMessageA",
-            func: impls::DispatchMessageA,
+            func: shims::Handler::Async(impls::DispatchMessageA),
             stack_consumed: 4u32,
-            is_async: true,
         };
-        pub const DispatchMessageW: Shim = Shim {
+        pub const DispatchMessageW: shims::Shim = shims::Shim {
             name: "DispatchMessageW",
-            func: impls::DispatchMessageW,
+            func: shims::Handler::Async(impls::DispatchMessageW),
             stack_consumed: 4u32,
-            is_async: true,
         };
-        pub const DrawTextW: Shim = Shim {
+        pub const DrawTextW: shims::Shim = shims::Shim {
             name: "DrawTextW",
-            func: impls::DrawTextW,
+            func: shims::Handler::Sync(impls::DrawTextW),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const EndPaint: Shim = Shim {
+        pub const EndPaint: shims::Shim = shims::Shim {
             name: "EndPaint",
-            func: impls::EndPaint,
+            func: shims::Handler::Sync(impls::EndPaint),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const FillRect: Shim = Shim {
+        pub const FillRect: shims::Shim = shims::Shim {
             name: "FillRect",
-            func: impls::FillRect,
+            func: shims::Handler::Sync(impls::FillRect),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const FindWindowA: Shim = Shim {
+        pub const FindWindowA: shims::Shim = shims::Shim {
             name: "FindWindowA",
-            func: impls::FindWindowA,
+            func: shims::Handler::Sync(impls::FindWindowA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const FrameRect: Shim = Shim {
+        pub const FrameRect: shims::Shim = shims::Shim {
             name: "FrameRect",
-            func: impls::FrameRect,
+            func: shims::Handler::Sync(impls::FrameRect),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const GetActiveWindow: Shim = Shim {
+        pub const GetActiveWindow: shims::Shim = shims::Shim {
             name: "GetActiveWindow",
-            func: impls::GetActiveWindow,
+            func: shims::Handler::Sync(impls::GetActiveWindow),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetClientRect: Shim = Shim {
+        pub const GetClientRect: shims::Shim = shims::Shim {
             name: "GetClientRect",
-            func: impls::GetClientRect,
+            func: shims::Handler::Sync(impls::GetClientRect),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetDC: Shim = Shim {
+        pub const GetDC: shims::Shim = shims::Shim {
             name: "GetDC",
-            func: impls::GetDC,
+            func: shims::Handler::Sync(impls::GetDC),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetDesktopWindow: Shim = Shim {
+        pub const GetDesktopWindow: shims::Shim = shims::Shim {
             name: "GetDesktopWindow",
-            func: impls::GetDesktopWindow,
+            func: shims::Handler::Sync(impls::GetDesktopWindow),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetFocus: Shim = Shim {
+        pub const GetFocus: shims::Shim = shims::Shim {
             name: "GetFocus",
-            func: impls::GetFocus,
+            func: shims::Handler::Sync(impls::GetFocus),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetForegroundWindow: Shim = Shim {
+        pub const GetForegroundWindow: shims::Shim = shims::Shim {
             name: "GetForegroundWindow",
-            func: impls::GetForegroundWindow,
+            func: shims::Handler::Sync(impls::GetForegroundWindow),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetKeyState: Shim = Shim {
+        pub const GetKeyState: shims::Shim = shims::Shim {
             name: "GetKeyState",
-            func: impls::GetKeyState,
+            func: shims::Handler::Sync(impls::GetKeyState),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetLastActivePopup: Shim = Shim {
+        pub const GetLastActivePopup: shims::Shim = shims::Shim {
             name: "GetLastActivePopup",
-            func: impls::GetLastActivePopup,
+            func: shims::Handler::Sync(impls::GetLastActivePopup),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const GetMessageA: Shim = Shim {
+        pub const GetMessageA: shims::Shim = shims::Shim {
             name: "GetMessageA",
-            func: impls::GetMessageA,
+            func: shims::Handler::Async(impls::GetMessageA),
             stack_consumed: 16u32,
-            is_async: true,
         };
-        pub const GetMessageW: Shim = Shim {
+        pub const GetMessageW: shims::Shim = shims::Shim {
             name: "GetMessageW",
-            func: impls::GetMessageW,
+            func: shims::Handler::Async(impls::GetMessageW),
             stack_consumed: 16u32,
-            is_async: true,
         };
-        pub const GetSystemMenu: Shim = Shim {
+        pub const GetSystemMenu: shims::Shim = shims::Shim {
             name: "GetSystemMenu",
-            func: impls::GetSystemMenu,
+            func: shims::Handler::Sync(impls::GetSystemMenu),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const GetSystemMetrics: Shim = Shim {
+        pub const GetSystemMetrics: shims::Shim = shims::Shim {
             name: "GetSystemMetrics",
-            func: impls::GetSystemMetrics,
+            func: shims::Handler::Sync(impls::GetSystemMetrics),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetWindowDC: Shim = Shim {
+        pub const GetWindowDC: shims::Shim = shims::Shim {
             name: "GetWindowDC",
-            func: impls::GetWindowDC,
+            func: shims::Handler::Sync(impls::GetWindowDC),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const GetWindowLongA: Shim = Shim {
+        pub const GetWindowLongA: shims::Shim = shims::Shim {
             name: "GetWindowLongA",
-            func: impls::GetWindowLongA,
+            func: shims::Handler::Sync(impls::GetWindowLongA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const IntersectRect: Shim = Shim {
+        pub const IntersectRect: shims::Shim = shims::Shim {
             name: "IntersectRect",
-            func: impls::IntersectRect,
+            func: shims::Handler::Sync(impls::IntersectRect),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const InvalidateRect: Shim = Shim {
+        pub const InvalidateRect: shims::Shim = shims::Shim {
             name: "InvalidateRect",
-            func: impls::InvalidateRect,
+            func: shims::Handler::Sync(impls::InvalidateRect),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const InvalidateRgn: Shim = Shim {
+        pub const InvalidateRgn: shims::Shim = shims::Shim {
             name: "InvalidateRgn",
-            func: impls::InvalidateRgn,
+            func: shims::Handler::Sync(impls::InvalidateRgn),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const IsIconic: Shim = Shim {
+        pub const IsIconic: shims::Shim = shims::Shim {
             name: "IsIconic",
-            func: impls::IsIconic,
+            func: shims::Handler::Sync(impls::IsIconic),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const IsRectEmpty: Shim = Shim {
+        pub const IsRectEmpty: shims::Shim = shims::Shim {
             name: "IsRectEmpty",
-            func: impls::IsRectEmpty,
+            func: shims::Handler::Sync(impls::IsRectEmpty),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const LoadAcceleratorsW: Shim = Shim {
+        pub const LoadAcceleratorsW: shims::Shim = shims::Shim {
             name: "LoadAcceleratorsW",
-            func: impls::LoadAcceleratorsW,
+            func: shims::Handler::Sync(impls::LoadAcceleratorsW),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const LoadBitmapA: Shim = Shim {
+        pub const LoadBitmapA: shims::Shim = shims::Shim {
             name: "LoadBitmapA",
-            func: impls::LoadBitmapA,
+            func: shims::Handler::Sync(impls::LoadBitmapA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const LoadCursorA: Shim = Shim {
+        pub const LoadCursorA: shims::Shim = shims::Shim {
             name: "LoadCursorA",
-            func: impls::LoadCursorA,
+            func: shims::Handler::Sync(impls::LoadCursorA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const LoadCursorW: Shim = Shim {
+        pub const LoadCursorW: shims::Shim = shims::Shim {
             name: "LoadCursorW",
-            func: impls::LoadCursorW,
+            func: shims::Handler::Sync(impls::LoadCursorW),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const LoadIconA: Shim = Shim {
+        pub const LoadIconA: shims::Shim = shims::Shim {
             name: "LoadIconA",
-            func: impls::LoadIconA,
+            func: shims::Handler::Sync(impls::LoadIconA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const LoadIconW: Shim = Shim {
+        pub const LoadIconW: shims::Shim = shims::Shim {
             name: "LoadIconW",
-            func: impls::LoadIconW,
+            func: shims::Handler::Sync(impls::LoadIconW),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const LoadImageA: Shim = Shim {
+        pub const LoadImageA: shims::Shim = shims::Shim {
             name: "LoadImageA",
-            func: impls::LoadImageA,
+            func: shims::Handler::Sync(impls::LoadImageA),
             stack_consumed: 24u32,
-            is_async: false,
         };
-        pub const LoadImageW: Shim = Shim {
+        pub const LoadImageW: shims::Shim = shims::Shim {
             name: "LoadImageW",
-            func: impls::LoadImageW,
+            func: shims::Handler::Sync(impls::LoadImageW),
             stack_consumed: 24u32,
-            is_async: false,
         };
-        pub const LoadMenuW: Shim = Shim {
+        pub const LoadMenuW: shims::Shim = shims::Shim {
             name: "LoadMenuW",
-            func: impls::LoadMenuW,
+            func: shims::Handler::Sync(impls::LoadMenuW),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const LoadStringA: Shim = Shim {
+        pub const LoadStringA: shims::Shim = shims::Shim {
             name: "LoadStringA",
-            func: impls::LoadStringA,
+            func: shims::Handler::Sync(impls::LoadStringA),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const LoadStringW: Shim = Shim {
+        pub const LoadStringW: shims::Shim = shims::Shim {
             name: "LoadStringW",
-            func: impls::LoadStringW,
+            func: shims::Handler::Sync(impls::LoadStringW),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const MapWindowPoints: Shim = Shim {
+        pub const MapWindowPoints: shims::Shim = shims::Shim {
             name: "MapWindowPoints",
-            func: impls::MapWindowPoints,
+            func: shims::Handler::Sync(impls::MapWindowPoints),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const MessageBoxA: Shim = Shim {
+        pub const MessageBoxA: shims::Shim = shims::Shim {
             name: "MessageBoxA",
-            func: impls::MessageBoxA,
+            func: shims::Handler::Sync(impls::MessageBoxA),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const MessageBoxW: Shim = Shim {
+        pub const MessageBoxW: shims::Shim = shims::Shim {
             name: "MessageBoxW",
-            func: impls::MessageBoxW,
+            func: shims::Handler::Sync(impls::MessageBoxW),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const MoveWindow: Shim = Shim {
+        pub const MoveWindow: shims::Shim = shims::Shim {
             name: "MoveWindow",
-            func: impls::MoveWindow,
+            func: shims::Handler::Sync(impls::MoveWindow),
             stack_consumed: 24u32,
-            is_async: false,
         };
-        pub const MsgWaitForMultipleObjects: Shim = Shim {
+        pub const MsgWaitForMultipleObjects: shims::Shim = shims::Shim {
             name: "MsgWaitForMultipleObjects",
-            func: impls::MsgWaitForMultipleObjects,
+            func: shims::Handler::Sync(impls::MsgWaitForMultipleObjects),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const PeekMessageA: Shim = Shim {
+        pub const PeekMessageA: shims::Shim = shims::Shim {
             name: "PeekMessageA",
-            func: impls::PeekMessageA,
+            func: shims::Handler::Sync(impls::PeekMessageA),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const PeekMessageW: Shim = Shim {
+        pub const PeekMessageW: shims::Shim = shims::Shim {
             name: "PeekMessageW",
-            func: impls::PeekMessageW,
+            func: shims::Handler::Sync(impls::PeekMessageW),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const PostMessageW: Shim = Shim {
+        pub const PostMessageW: shims::Shim = shims::Shim {
             name: "PostMessageW",
-            func: impls::PostMessageW,
+            func: shims::Handler::Sync(impls::PostMessageW),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const PostQuitMessage: Shim = Shim {
+        pub const PostQuitMessage: shims::Shim = shims::Shim {
             name: "PostQuitMessage",
-            func: impls::PostQuitMessage,
+            func: shims::Handler::Sync(impls::PostQuitMessage),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const PtInRect: Shim = Shim {
+        pub const PtInRect: shims::Shim = shims::Shim {
             name: "PtInRect",
-            func: impls::PtInRect,
+            func: shims::Handler::Sync(impls::PtInRect),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const RegisterClassA: Shim = Shim {
+        pub const RegisterClassA: shims::Shim = shims::Shim {
             name: "RegisterClassA",
-            func: impls::RegisterClassA,
+            func: shims::Handler::Sync(impls::RegisterClassA),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const RegisterClassExA: Shim = Shim {
+        pub const RegisterClassExA: shims::Shim = shims::Shim {
             name: "RegisterClassExA",
-            func: impls::RegisterClassExA,
+            func: shims::Handler::Sync(impls::RegisterClassExA),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const RegisterClassExW: Shim = Shim {
+        pub const RegisterClassExW: shims::Shim = shims::Shim {
             name: "RegisterClassExW",
-            func: impls::RegisterClassExW,
+            func: shims::Handler::Sync(impls::RegisterClassExW),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const RegisterClassW: Shim = Shim {
+        pub const RegisterClassW: shims::Shim = shims::Shim {
             name: "RegisterClassW",
-            func: impls::RegisterClassW,
+            func: shims::Handler::Sync(impls::RegisterClassW),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const RegisterWindowMessageW: Shim = Shim {
+        pub const RegisterWindowMessageW: shims::Shim = shims::Shim {
             name: "RegisterWindowMessageW",
-            func: impls::RegisterWindowMessageW,
+            func: shims::Handler::Sync(impls::RegisterWindowMessageW),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const ReleaseCapture: Shim = Shim {
+        pub const ReleaseCapture: shims::Shim = shims::Shim {
             name: "ReleaseCapture",
-            func: impls::ReleaseCapture,
+            func: shims::Handler::Sync(impls::ReleaseCapture),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const ReleaseDC: Shim = Shim {
+        pub const ReleaseDC: shims::Shim = shims::Shim {
             name: "ReleaseDC",
-            func: impls::ReleaseDC,
+            func: shims::Handler::Sync(impls::ReleaseDC),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const SendMessageA: Shim = Shim {
+        pub const SendMessageA: shims::Shim = shims::Shim {
             name: "SendMessageA",
-            func: impls::SendMessageA,
+            func: shims::Handler::Async(impls::SendMessageA),
             stack_consumed: 16u32,
-            is_async: true,
         };
-        pub const SetCapture: Shim = Shim {
+        pub const SetCapture: shims::Shim = shims::Shim {
             name: "SetCapture",
-            func: impls::SetCapture,
+            func: shims::Handler::Sync(impls::SetCapture),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const SetCursor: Shim = Shim {
+        pub const SetCursor: shims::Shim = shims::Shim {
             name: "SetCursor",
-            func: impls::SetCursor,
+            func: shims::Handler::Sync(impls::SetCursor),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const SetFocus: Shim = Shim {
+        pub const SetFocus: shims::Shim = shims::Shim {
             name: "SetFocus",
-            func: impls::SetFocus,
+            func: shims::Handler::Sync(impls::SetFocus),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const SetForegroundWindow: Shim = Shim {
+        pub const SetForegroundWindow: shims::Shim = shims::Shim {
             name: "SetForegroundWindow",
-            func: impls::SetForegroundWindow,
+            func: shims::Handler::Sync(impls::SetForegroundWindow),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const SetMenu: Shim = Shim {
+        pub const SetMenu: shims::Shim = shims::Shim {
             name: "SetMenu",
-            func: impls::SetMenu,
+            func: shims::Handler::Sync(impls::SetMenu),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const SetRect: Shim = Shim {
+        pub const SetRect: shims::Shim = shims::Shim {
             name: "SetRect",
-            func: impls::SetRect,
+            func: shims::Handler::Sync(impls::SetRect),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const SetRectEmpty: Shim = Shim {
+        pub const SetRectEmpty: shims::Shim = shims::Shim {
             name: "SetRectEmpty",
-            func: impls::SetRectEmpty,
+            func: shims::Handler::Sync(impls::SetRectEmpty),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const SetTimer: Shim = Shim {
+        pub const SetTimer: shims::Shim = shims::Shim {
             name: "SetTimer",
-            func: impls::SetTimer,
+            func: shims::Handler::Sync(impls::SetTimer),
             stack_consumed: 16u32,
-            is_async: false,
         };
-        pub const SetWindowPos: Shim = Shim {
+        pub const SetWindowPos: shims::Shim = shims::Shim {
             name: "SetWindowPos",
-            func: impls::SetWindowPos,
+            func: shims::Handler::Async(impls::SetWindowPos),
             stack_consumed: 28u32,
-            is_async: true,
         };
-        pub const SetWindowTextA: Shim = Shim {
+        pub const SetWindowTextA: shims::Shim = shims::Shim {
             name: "SetWindowTextA",
-            func: impls::SetWindowTextA,
+            func: shims::Handler::Sync(impls::SetWindowTextA),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const ShowCursor: Shim = Shim {
+        pub const ShowCursor: shims::Shim = shims::Shim {
             name: "ShowCursor",
-            func: impls::ShowCursor,
+            func: shims::Handler::Sync(impls::ShowCursor),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const ShowWindow: Shim = Shim {
+        pub const ShowWindow: shims::Shim = shims::Shim {
             name: "ShowWindow",
-            func: impls::ShowWindow,
+            func: shims::Handler::Async(impls::ShowWindow),
             stack_consumed: 8u32,
-            is_async: true,
         };
-        pub const TranslateAcceleratorW: Shim = Shim {
+        pub const TranslateAcceleratorW: shims::Shim = shims::Shim {
             name: "TranslateAcceleratorW",
-            func: impls::TranslateAcceleratorW,
+            func: shims::Handler::Sync(impls::TranslateAcceleratorW),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const TranslateMessage: Shim = Shim {
+        pub const TranslateMessage: shims::Shim = shims::Shim {
             name: "TranslateMessage",
-            func: impls::TranslateMessage,
+            func: shims::Handler::Sync(impls::TranslateMessage),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const UpdateWindow: Shim = Shim {
+        pub const UpdateWindow: shims::Shim = shims::Shim {
             name: "UpdateWindow",
-            func: impls::UpdateWindow,
+            func: shims::Handler::Async(impls::UpdateWindow),
             stack_consumed: 4u32,
-            is_async: true,
         };
-        pub const ValidateRect: Shim = Shim {
+        pub const ValidateRect: shims::Shim = shims::Shim {
             name: "ValidateRect",
-            func: impls::ValidateRect,
+            func: shims::Handler::Sync(impls::ValidateRect),
             stack_consumed: 8u32,
-            is_async: false,
         };
-        pub const WaitMessage: Shim = Shim {
+        pub const WaitMessage: shims::Shim = shims::Shim {
             name: "WaitMessage",
-            func: impls::WaitMessage,
+            func: shims::Handler::Sync(impls::WaitMessage),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const wsprintfA: Shim = Shim {
+        pub const wsprintfA: shims::Shim = shims::Shim {
             name: "wsprintfA",
-            func: impls::wsprintfA,
+            func: shims::Handler::Sync(impls::wsprintfA),
             stack_consumed: 0u32,
-            is_async: false,
         };
     }
     const EXPORTS: [Symbol; 87usize] = [
@@ -6263,72 +5661,61 @@ pub mod winmm {
     }
     mod shims {
         use super::impls;
-        use crate::shims::Shim;
-        pub const timeBeginPeriod: Shim = Shim {
+        use crate::shims;
+        pub const timeBeginPeriod: shims::Shim = shims::Shim {
             name: "timeBeginPeriod",
-            func: impls::timeBeginPeriod,
+            func: shims::Handler::Sync(impls::timeBeginPeriod),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const timeGetTime: Shim = Shim {
+        pub const timeGetTime: shims::Shim = shims::Shim {
             name: "timeGetTime",
-            func: impls::timeGetTime,
+            func: shims::Handler::Sync(impls::timeGetTime),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const timeSetEvent: Shim = Shim {
+        pub const timeSetEvent: shims::Shim = shims::Shim {
             name: "timeSetEvent",
-            func: impls::timeSetEvent,
+            func: shims::Handler::Sync(impls::timeSetEvent),
             stack_consumed: 20u32,
-            is_async: false,
         };
-        pub const waveOutClose: Shim = Shim {
+        pub const waveOutClose: shims::Shim = shims::Shim {
             name: "waveOutClose",
-            func: impls::waveOutClose,
+            func: shims::Handler::Sync(impls::waveOutClose),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const waveOutGetDevCapsA: Shim = Shim {
+        pub const waveOutGetDevCapsA: shims::Shim = shims::Shim {
             name: "waveOutGetDevCapsA",
-            func: impls::waveOutGetDevCapsA,
+            func: shims::Handler::Sync(impls::waveOutGetDevCapsA),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const waveOutGetNumDevs: Shim = Shim {
+        pub const waveOutGetNumDevs: shims::Shim = shims::Shim {
             name: "waveOutGetNumDevs",
-            func: impls::waveOutGetNumDevs,
+            func: shims::Handler::Sync(impls::waveOutGetNumDevs),
             stack_consumed: 0u32,
-            is_async: false,
         };
-        pub const waveOutGetPosition: Shim = Shim {
+        pub const waveOutGetPosition: shims::Shim = shims::Shim {
             name: "waveOutGetPosition",
-            func: impls::waveOutGetPosition,
+            func: shims::Handler::Sync(impls::waveOutGetPosition),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const waveOutOpen: Shim = Shim {
+        pub const waveOutOpen: shims::Shim = shims::Shim {
             name: "waveOutOpen",
-            func: impls::waveOutOpen,
+            func: shims::Handler::Sync(impls::waveOutOpen),
             stack_consumed: 24u32,
-            is_async: false,
         };
-        pub const waveOutPrepareHeader: Shim = Shim {
+        pub const waveOutPrepareHeader: shims::Shim = shims::Shim {
             name: "waveOutPrepareHeader",
-            func: impls::waveOutPrepareHeader,
+            func: shims::Handler::Sync(impls::waveOutPrepareHeader),
             stack_consumed: 12u32,
-            is_async: false,
         };
-        pub const waveOutReset: Shim = Shim {
+        pub const waveOutReset: shims::Shim = shims::Shim {
             name: "waveOutReset",
-            func: impls::waveOutReset,
+            func: shims::Handler::Sync(impls::waveOutReset),
             stack_consumed: 4u32,
-            is_async: false,
         };
-        pub const waveOutWrite: Shim = Shim {
+        pub const waveOutWrite: shims::Shim = shims::Shim {
             name: "waveOutWrite",
-            func: impls::waveOutWrite,
+            func: shims::Handler::Sync(impls::waveOutWrite),
             stack_consumed: 12u32,
-            is_async: false,
         };
     }
     const EXPORTS: [Symbol; 11usize] = [

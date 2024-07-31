@@ -83,7 +83,7 @@ fn generate_shims_module(
             }
 
             mod shims {
-                use crate::shims::Shim;
+                use crate::shims;
                 use super::impls;
                 #(#shims)*
             }
