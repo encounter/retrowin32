@@ -176,7 +176,7 @@ pub struct X86 {
     pub cur_cpu: usize,
 
     /// Total number of instructions executed.
-    pub instr_count: usize,
+    pub instr_count: u64,
 
     pub icache: InstrCache,
 }
@@ -263,7 +263,7 @@ impl X86 {
         for op in block.ops.iter() {
             prev_ip = cpu.regs.eip;
             cpu.regs.eip = op.instr.next_ip() as u32;
-            self.instr_count += 1;
+            self.instr_count = self.instr_count.wrapping_add(1);
             (op.op)(cpu, mem, &op.instr);
             if !cpu.state.is_running() {
                 break;
