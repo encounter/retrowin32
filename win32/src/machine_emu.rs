@@ -164,7 +164,7 @@ impl MachineX<Emulator> {
                 signal: 11, // SIGSEGV, TODO?
                 eip,
             },
-            x86::CPUState::Exit(_) => unreachable!(),
+            x86::CPUState::Exit(code) => StopReason::Exit { code: *code },
         }
     }
 

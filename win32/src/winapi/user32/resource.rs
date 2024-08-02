@@ -1,4 +1,5 @@
 use super::{HINSTANCE, HMENU};
+use crate::winapi::kernel32::set_last_error;
 use crate::{
     pe,
     winapi::{
@@ -67,7 +68,7 @@ fn load_bitmap(
     machine: &mut Machine,
     hInstance: HINSTANCE,
     name: ResourceKey<&Str16>,
-) -> Option<HGDIOBJ> {
+) -> Result<HGDIOBJ, u32> {
     let buf = crate::winapi::kernel32::find_resource(
         &machine.state.kernel32,
         machine.mem(),
@@ -76,13 +77,11 @@ fn load_bitmap(
         name,
     )?;
     let bmp = BitmapRGBA32::parse(Mem::from_slice(buf));
-    Some(
-        machine
-            .state
-            .gdi32
-            .objects
-            .add(gdi32::Object::Bitmap(gdi32::BitmapType::RGBA32(bmp))),
-    )
+    Ok(machine
+        .state
+        .gdi32
+        .objects
+        .add(gdi32::Object::Bitmap(gdi32::BitmapType::RGBA32(bmp))))
 }
 
 #[win32_derive::dllexport]
@@ -155,7 +154,7 @@ pub fn LoadBitmapA(
     load_bitmap(machine, hInstance, name.as_ref()).unwrap()
 }
 
-fn find_string(machine: &Machine, hInstance: HINSTANCE, uID: u32) -> Option<&[u8]> {
+fn find_string(machine: &Machine, hInstance: HINSTANCE, uID: u32) -> Result<&[u8], u32> {
     // Strings are stored as blocks of 16 consecutive strings.
     let (resource_id, index) = ((uID >> 4) + 1, uID & 0xF);
 
@@ -176,7 +175,7 @@ fn find_string(machine: &Machine, hInstance: HINSTANCE, uID: u32) -> Option<&[u8
     }
     let len = block.get_pod::<u16>(ofs) as u32;
     let str = block.sub32(ofs + 2, len * 2);
-    Some(str)
+    Ok(str)
 }
 
 #[win32_derive::dllexport]
@@ -188,8 +187,12 @@ pub fn LoadStringA(
     cchBufferMax: u32,
 ) -> u32 {
     let str = match find_string(machine, hInstance, uID) {
-        Some(str) => Str16::from_bytes(str),
-        None => return 0,
+        Ok(str) => Str16::from_bytes(str),
+        Err(code) => {
+            log::debug!("LoadStringA failed: {}", win32_error_str(code));
+            set_last_error(machine, code);
+            return 0;
+        }
     };
     assert!(cchBufferMax != 0); // MSDN claims this is invalid
 
@@ -211,8 +214,12 @@ pub fn LoadStringW(
     cchBufferMax: u32,
 ) -> u32 {
     let str = match find_string(machine, hInstance, uID) {
-        Some(str) => str,
-        None => return 0,
+        Ok(str) => str,
+        Err(code) => {
+            log::debug!("LoadStringW failed: {}", win32_error_str(code));
+            set_last_error(machine, code);
+            return 0;
+        }
     };
     if cchBufferMax == 0 {
         machine

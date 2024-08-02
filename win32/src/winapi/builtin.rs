@@ -3974,26 +3974,63 @@ pub mod version {
         };
         use memory::Extensions;
         use winapi::version::*;
+        pub unsafe fn GetFileVersionInfoA(machine: &mut Machine, esp: u32) -> u32 {
+            let mem = machine.mem().detach();
+            let lptstrFilename = <Option<&str>>::from_stack(mem, esp + 4u32);
+            let dwHandle = <u32>::from_stack(mem, esp + 8u32);
+            let dwLen = <u32>::from_stack(mem, esp + 12u32);
+            let lpData = <u32>::from_stack(mem, esp + 16u32);
+            winapi::version::GetFileVersionInfoA(machine, lptstrFilename, dwHandle, dwLen, lpData)
+                .to_raw()
+        }
         pub unsafe fn GetFileVersionInfoSizeA(machine: &mut Machine, esp: u32) -> u32 {
             let mem = machine.mem().detach();
             let lptstrFilename = <Option<&str>>::from_stack(mem, esp + 4u32);
             let lpdwHandle = <Option<&mut u32>>::from_stack(mem, esp + 8u32);
             winapi::version::GetFileVersionInfoSizeA(machine, lptstrFilename, lpdwHandle).to_raw()
         }
+        pub unsafe fn VerQueryValueA(machine: &mut Machine, esp: u32) -> u32 {
+            let mem = machine.mem().detach();
+            let pBlock = <u32>::from_stack(mem, esp + 4u32);
+            let lpSubBlock = <Option<&str>>::from_stack(mem, esp + 8u32);
+            let lplpBuffer = <Option<&mut u32>>::from_stack(mem, esp + 12u32);
+            let puLen = <Option<&mut u32>>::from_stack(mem, esp + 16u32);
+            winapi::version::VerQueryValueA(machine, pBlock, lpSubBlock, lplpBuffer, puLen).to_raw()
+        }
     }
     mod shims {
         use super::impls;
         use crate::shims;
+        pub const GetFileVersionInfoA: shims::Shim = shims::Shim {
+            name: "GetFileVersionInfoA",
+            func: shims::Handler::Sync(impls::GetFileVersionInfoA),
+            stack_consumed: 16u32,
+        };
         pub const GetFileVersionInfoSizeA: shims::Shim = shims::Shim {
             name: "GetFileVersionInfoSizeA",
             func: shims::Handler::Sync(impls::GetFileVersionInfoSizeA),
             stack_consumed: 8u32,
         };
+        pub const VerQueryValueA: shims::Shim = shims::Shim {
+            name: "VerQueryValueA",
+            func: shims::Handler::Sync(impls::VerQueryValueA),
+            stack_consumed: 16u32,
+        };
     }
-    const EXPORTS: [Symbol; 1usize] = [Symbol {
-        ordinal: None,
-        shim: shims::GetFileVersionInfoSizeA,
-    }];
+    const EXPORTS: [Symbol; 3usize] = [
+        Symbol {
+            ordinal: None,
+            shim: shims::GetFileVersionInfoA,
+        },
+        Symbol {
+            ordinal: None,
+            shim: shims::GetFileVersionInfoSizeA,
+        },
+        Symbol {
+            ordinal: None,
+            shim: shims::VerQueryValueA,
+        },
+    ];
     pub const DLL: BuiltinDLL = BuiltinDLL {
         file_name: "version.dll",
         exports: &EXPORTS,

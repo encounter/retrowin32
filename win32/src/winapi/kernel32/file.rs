@@ -615,7 +615,7 @@ pub fn GetFullPathNameW(
         }
     };
     let out_path = cwd.join(&file_name).normalize();
-    let out_bytes = String16::from(out_path.to_string_lossy().as_ref()).0;
+    let out_bytes = String16::from(out_path.to_string_lossy().as_ref()).into_inner();
 
     set_last_error(machine, ERROR_SUCCESS);
 

@@ -92,7 +92,7 @@ impl DLL {
 
 fn normalize_module_name(name: &str) -> String {
     let mut name = name.to_ascii_lowercase();
-    if !name.ends_with(".dll") && !name.ends_with(".") {
+    if !name.ends_with(".dll") && !name.ends_with(".exe") && !name.ends_with(".") {
         name.push_str(".dll");
     }
     name
@@ -100,21 +100,15 @@ fn normalize_module_name(name: &str) -> String {
 
 #[win32_derive::dllexport]
 pub fn GetModuleHandleA(machine: &mut Machine, lpModuleName: Option<&str>) -> HMODULE {
+    set_last_error(machine, ERROR_SUCCESS);
     let name = match lpModuleName {
         None => return HMODULE::from_raw(machine.state.kernel32.image_base),
         Some(name) => name,
     };
 
-    let name = normalize_module_name(name);
-
-    if let Some((hmodule, _)) = machine
-        .state
-        .kernel32
-        .dlls
-        .iter()
-        .find(|(_, dll)| dll.name == name)
-    {
-        return *hmodule;
+    let module = load_library(machine, name);
+    if !module.is_null() {
+        return module;
     }
 
     set_last_error(machine, ERROR_MOD_NOT_FOUND);
@@ -173,8 +167,15 @@ pub fn GetModuleFileNameW(
     0 // fail
 }
 
-pub fn load_library(machine: &mut Machine, filename: &str) -> HMODULE {
-    let mut filename = normalize_module_name(filename);
+pub fn load_library(machine: &mut Machine, path: &str) -> HMODULE {
+    // Match main executable path.
+    if let Some(exe_path) = machine.state.kernel32.cmdline.args.first() {
+        if path.eq_ignore_ascii_case(exe_path) {
+            return HMODULE::from_raw(machine.state.kernel32.image_base);
+        }
+    }
+
+    let mut filename = normalize_module_name(path);
 
     // See if already loaded.
     if let Some((hmodule, _)) = machine
@@ -185,6 +186,43 @@ pub fn load_library(machine: &mut Machine, filename: &str) -> HMODULE {
         .find(|(_, dll)| dll.name == filename)
     {
         return *hmodule;
+    }
+
+    // Try to load path directly.
+    if path.contains('\\') {
+        let mut contents = Vec::new();
+        let path = WindowsPath::new(&path);
+        let mut file = match machine.host.open(path, host::FileOptions::read()) {
+            Ok(file) => file,
+            Err(_) => {
+                log::warn!("load_library({filename:?}): not found");
+                return HMODULE::null();
+            }
+        };
+        match file.read_to_end(&mut contents) {
+            Ok(_) => {}
+            Err(e) => {
+                log::warn!("load_library({filename:?}): read error {e:?}");
+                return HMODULE::null();
+            }
+        }
+        let dll = match pe::load_dll(machine, &filename, &contents) {
+            Ok(dll) => dll,
+            Err(e) => {
+                log::warn!("load_library({filename:?}): {e:?}");
+                return HMODULE::null();
+            }
+        };
+        let hmodule = HMODULE::from_raw(dll.base);
+        machine.state.kernel32.dlls.insert(
+            hmodule,
+            DLL {
+                name: filename,
+                dll,
+                builtin: None,
+            },
+        );
+        return hmodule;
     }
 
     if filename.starts_with("api-") {

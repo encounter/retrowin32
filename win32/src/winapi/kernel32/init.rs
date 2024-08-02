@@ -1,6 +1,7 @@
 //! Process initialization and startup.
 
 use super::{ExitProcess, FindHandle, Mappings, DLL, HMODULE, STDERR_HFILE, STDOUT_HFILE};
+use crate::winapi::kernel32::nls::NlsState;
 use crate::{
     machine::MemImpl,
     pe,
@@ -30,22 +31,23 @@ pub struct CommandLine {
 }
 
 impl CommandLine {
-    fn new(mut cmdline: String, arena: &mut Arena, mem: Mem) -> Self {
+    fn new(cmdline: String, arena: &mut Arena, mem: Mem, nls: &NlsState) -> Self {
         let args = split_cmdline(&cmdline);
 
         log::debug!("CommandLine: {}", cmdline);
         let len = cmdline.len();
-        cmdline.push(0 as char); // nul terminator
+        let mut narrow = nls.encode_string(&cmdline).into_owned();
+        narrow.push(0); // nul terminator
 
-        let cmdline8_ptr = arena.alloc(cmdline.len() as u32, 1);
-        mem.sub32_mut(cmdline8_ptr, cmdline.len() as u32)
-            .copy_from_slice(cmdline.as_bytes());
+        let cmdline8_ptr = arena.alloc(narrow.len() as u32, 1);
+        mem.sub32_mut(cmdline8_ptr, narrow.len() as u32)
+            .copy_from_slice(&narrow);
 
         let cmdline16 = String16::from(&cmdline);
         let cmdline16_ptr = arena.alloc(cmdline16.byte_size() as u32, 2);
         let mem16: &mut [u16] =
-            unsafe { std::mem::transmute(mem.sub32_mut(cmdline16_ptr, cmdline16.0.len() as u32)) };
-        mem16.copy_from_slice(&cmdline16.0);
+            unsafe { std::mem::transmute(mem.sub32_mut(cmdline16_ptr, cmdline16.len() as u32)) };
+        mem16.copy_from_slice(cmdline16.as_slice());
 
         CommandLine {
             args,
@@ -227,6 +229,9 @@ pub struct State {
     pub(super) env: u32,
 
     pub cmdline: CommandLine,
+
+    #[serde(skip)] // TODO
+    pub nls: NlsState,
 }
 
 impl State {
@@ -235,13 +240,15 @@ impl State {
         let mapping = mappings.alloc(0x1000, "kernel32 data".into(), mem);
         let mut arena = Arena::new(mapping.addr, mapping.size);
 
+        let nls = NlsState::default();
+
         let env = b"WINDIR=C:\\Windows\0\0";
         let env_addr = arena.alloc(env.len() as u32, 1);
         mem.mem()
             .sub32_mut(env_addr, env.len() as u32)
             .copy_from_slice(env);
 
-        let cmdline = CommandLine::new(cmdline, &mut arena, mem.mem());
+        let cmdline = CommandLine::new(cmdline, &mut arena, mem.mem(), &nls);
 
         let teb = init_teb(&cmdline, &mut arena, mem.mem());
 
@@ -287,6 +294,7 @@ impl State {
             #[cfg(feature = "x86-64")]
             ldt,
             resources: Default::default(),
+            nls,
         }
     }
 

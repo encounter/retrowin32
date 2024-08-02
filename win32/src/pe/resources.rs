@@ -11,6 +11,9 @@
 #![allow(non_camel_case_types)]
 
 use crate::str16::Str16;
+use crate::winapi::types::{
+    ERROR_RESOURCE_LANG_NOT_FOUND, ERROR_RESOURCE_NAME_NOT_FOUND, ERROR_RESOURCE_TYPE_NOT_FOUND,
+};
 use memory::Extensions;
 use std::{mem::size_of, ops::Range};
 
@@ -52,6 +55,7 @@ unsafe impl memory::Pod for IMAGE_RESOURCE_DIRECTORY_ENTRY {}
 pub enum RT {
     BITMAP = 2,
     STRING = 6,
+    VERSION = 16,
 }
 
 #[derive(Debug, PartialEq, Eq)]
@@ -105,24 +109,28 @@ pub fn find_resource(
     section: &[u8],
     query_type: ResourceName,
     query_id: ResourceName,
-) -> Option<Range<u32>> {
+) -> Result<Range<u32>, u32> {
     // Resources are structured as generic nested directories, but in practice there
     // are always exactly three levels with known semantics.
     let mut dir = IMAGE_RESOURCE_DIRECTORY::entries(section);
 
-    let etype = dir.find(|entry| entry.name(section) == query_type)?;
+    let etype = dir
+        .find(|entry| entry.name(section) == query_type)
+        .ok_or(ERROR_RESOURCE_TYPE_NOT_FOUND)?;
     let mut dir = match etype.value(section) {
         ResourceValue::Dir(dir) => IMAGE_RESOURCE_DIRECTORY::entries(dir),
         _ => todo!(),
     };
 
-    let eid = dir.find(|entry| entry.name(section) == query_id)?;
+    let eid = dir
+        .find(|entry| entry.name(section) == query_id)
+        .ok_or(ERROR_RESOURCE_NAME_NOT_FOUND)?;
     let mut dir = match eid.value(section) {
         ResourceValue::Dir(dir) => IMAGE_RESOURCE_DIRECTORY::entries(dir),
         _ => todo!(),
     };
 
-    let first = dir.next()?;
+    let first = dir.next().ok_or(ERROR_RESOURCE_LANG_NOT_FOUND)?;
     if dir.next().is_some() {
         log::warn!("multiple res entries, picking first");
     }
@@ -130,5 +138,5 @@ pub fn find_resource(
         ResourceValue::Data(data) => data,
         _ => todo!(),
     };
-    Some(data.OffsetToData..data.OffsetToData + data.Size)
+    Ok(data.OffsetToData..data.OffsetToData + data.Size)
 }

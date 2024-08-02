@@ -6,10 +6,21 @@
 pub struct Str16([u16]);
 
 impl Str16 {
-    pub fn from_bytes(mem: &[u8]) -> &Self {
+    pub const fn from_bytes(mem: &[u8]) -> &Self {
         Str16::from_buffer(unsafe {
             std::slice::from_raw_parts(mem.as_ptr() as *const _, mem.len() / 2)
         })
+    }
+
+    pub fn from_bytes_until_nul(mem: &[u8]) -> &Self {
+        let mut end = 0;
+        while end + 1 < mem.len() {
+            if mem[end] == 0 && mem[end + 1] == 0 {
+                break;
+            }
+            end += 2;
+        }
+        Self::from_bytes(&mem[..end])
     }
 
     pub fn from_bytes_mut(mem: &mut [u8]) -> &mut Self {
@@ -18,7 +29,7 @@ impl Str16 {
         })
     }
 
-    pub fn from_buffer(mem: &[u16]) -> &Self {
+    pub const fn from_buffer(mem: &[u16]) -> &Self {
         unsafe { std::mem::transmute(mem) }
     }
 
@@ -48,15 +59,8 @@ impl Str16 {
     }
 
     pub fn to_string(&self) -> String {
-        self.0
-            .iter()
-            .map(|&c| {
-                if c > 0xFF {
-                    // TODO
-                    panic!("unhandled non-ascii {:?}", char::from_u32(c as u32));
-                }
-                c as u8 as char
-            })
+        char::decode_utf16(self.0.iter().cloned())
+            .map(|r| r.unwrap_or(std::char::REPLACEMENT_CHARACTER))
             .collect()
     }
 }
@@ -82,11 +86,11 @@ impl std::ops::DerefMut for Str16 {
 }
 
 #[derive(PartialEq, Eq)]
-pub struct String16(pub Vec<u16>);
+pub struct String16(Vec<u16>);
 
 impl String16 {
     pub fn as_str16(&self) -> &Str16 {
-        Str16::from_buffer(&self.0)
+        Str16::from_buffer(self.as_slice())
     }
 
     pub fn byte_size(&self) -> usize {
@@ -94,16 +98,28 @@ impl String16 {
     }
 
     pub fn from(str: &str) -> Self {
-        String16(
-            str.chars()
-                .map(|c| {
-                    if c as u16 > 0x7f {
-                        panic!("unhandled non-ascii {:?}", c);
-                    }
-                    c as u16
-                })
-                .collect(),
-        )
+        let mut buf = [0u16; 2];
+        let mut vec = Vec::with_capacity(str.len());
+        for c in str.chars() {
+            vec.extend_from_slice(c.encode_utf16(&mut buf));
+        }
+        String16(vec)
+    }
+
+    pub fn len(&self) -> usize {
+        self.0.len()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
+    }
+
+    pub fn into_inner(self) -> Vec<u16> {
+        self.0
+    }
+
+    pub fn as_slice(&self) -> &[u16] {
+        self.0.as_slice()
     }
 }
 

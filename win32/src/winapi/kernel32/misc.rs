@@ -37,13 +37,13 @@ pub fn ExitProcess(machine: &mut Machine, uExitCode: u32) -> u32 {
 }
 
 #[win32_derive::dllexport]
-pub fn GetACP(_machine: &mut Machine) -> u32 {
-    1252 // windows-1252
+pub fn GetACP(machine: &mut Machine) -> u32 {
+    machine.state.kernel32.nls.acp
 }
 
 #[win32_derive::dllexport]
-pub fn IsValidCodePage(_machine: &mut Machine, CodePage: u32) -> bool {
-    CodePage == 1252
+pub fn IsValidCodePage(machine: &mut Machine, CodePage: u32) -> bool {
+    CodePage == machine.state.kernel32.nls.acp // TODO
 }
 
 #[win32_derive::dllexport]
